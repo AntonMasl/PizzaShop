@@ -17,5 +17,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
 </style>

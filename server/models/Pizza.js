@@ -8,24 +8,69 @@ const Pizza = new Schema({
         required: true
     },
     diameter: {
-        type: [Number],
-        default: [25,32,40]
+        small: {
+            type: Number,
+            default: 25
+        },
+        middle: {
+            type: Number,
+            default: 32
+        },
+        big: {
+            type: Number,
+            default: 40
+        }
     },
-    typeOfDough: {
-        type: [String],
-        default: ["тонкое", "традиционное"]
-    },
+    // typeOfDough: {
+    //     slim:{
+    //         type: String,
+    //         default: 'тонкое'
+    //     },
+    //     traditional
+    //     default: ["тонкое", "традиционное"]
+    // },
     weightOnTraditionalDough: {
-        type: [Number],
-        required: true
+        //type: [Number],
+        small: {
+            type: Number,
+            required: true
+        },
+        middle: {
+            type: Number,
+            required: true
+        },
+        big: {
+            type: Number,
+            required: true
+        }
     },
-    weightOnThinDough: {
-        type: [Number],
-        required: true
+    weightOnSmallDough: {
+        small: {
+            type: Number,
+            required: true
+        },
+        middle: {
+            type: Number,
+            required: true
+        },
+        big: {
+            type: Number,
+            required: true
+        }
     },
     price: {
-        type: [Number],
-        required: true
+        small: {
+            type: Number,
+            required: true
+        },
+        middle: {
+            type: Number,
+            required: true
+        },
+        big: {
+            type: Number,
+            required: true
+        }
     },
     foodValue: {
         energyValue: {type: Number},

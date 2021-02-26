@@ -8,18 +8,17 @@ class PizzaController {
                 name,
                 categoryName,
                 weightOnTraditionalDough,
-                weightOnThinDough,
+                weightOnSmallDough,
                 price,
                 foodValue,
                 description
             } = req.body
             const category = await Category.findOne({name: categoryName})
-            console.log(category)
             const pizza = new Pizza({
                 name,
                 category: category._id,
                 weightOnTraditionalDough,
-                weightOnThinDough,
+                weightOnSmallDough,
                 price,
                 foodValue,
                 description

@@ -3,26 +3,26 @@
     <div class="card__inner">
       <img class="card__img" src="../images/pizza1.png" alt="">
       <div class="card__name">{{ pizza.name }}</div>
-      <div class="card__specification-items">
-        <div class="card__specification-item">
-          <div class="active">{{pizza.typeOfDough[0]}}</div>
-          <div>{{ pizza.typeOfDough[1] }}</div>
+      <div class="card__specification-pizza">
+        <div class="dough">
+          <div class="active">Тонкое</div>
+          <div>Традиционное</div>
         </div>
-        <div class="card__specification-item">
-          <div>{{ pizza.diameter[0] }}</div>
-          <div class="active">{{ pizza.diameter[1] }}</div>
-          <div>{{ pizza.diameter[2] }}</div>
+        <div class="diameter">
+          <div class="active">{{ pizza.diameter.small }}</div>
+          <div>{{ pizza.diameter.middle }}</div>
+          <div>{{ pizza.diameter.big }}</div>
         </div>
       </div>
       <div class="card__bottom">
-        <div class="card__quantity">
+        <div class="card__counter-product">
           <button>-</button>
           <span>1</span>
           <button>+</button>
         </div>
         <div class="card__sum">
-          <div class="card__price">{{pizza.price[0]}} <span>руб</span></div>
-          <div class="card__weight">400 г</div>
+          <div class="card__price">{{ pizza.price.small }} <span>руб</span></div>
+          <div class="card__weight">{{ pizza.weightOnSmallDough.small }} г</div>
         </div>
       </div>
       <button class="card__btn-buy">+ в корзину</button>
@@ -39,7 +39,12 @@ export default {
 <style lang="scss" scoped>
 .card {
   max-width: 280px;
-  box-shadow: 0px 0px 10px black;
+  //box-shadow: 0 0 10px black;
+  margin-bottom: 50px;
+  margin-right: 10px;
+  margin-left: 10px;
+  border: 1px solid wheat;
+
 
   &__inner {
 
@@ -56,45 +61,16 @@ export default {
     margin-bottom: 22px;
   }
 
-  &__specification-items {
+  &__specification-pizza {
     background: #F3F3F3;
     border-radius: 10px;
     padding: 7px 5.7px;
     margin-bottom: 20px;
-  }
-
-  &__specification-item {
-    display: flex;
-    justify-content: space-between;
 
     .active {
       background-color: white;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
       border-radius: 5px;
-    }
-
-    &:first-child {
-      margin-bottom: 7px;
-
-      div {
-        width: 132px;
-        font-size: 14px;
-        line-height: 17px;
-        font-weight: 700;
-        padding: 8px 0;
-        cursor: pointer;
-      }
-    }
-
-    &:last-child {
-      div {
-        width: 86px;
-        font-size: 14px;
-        line-height: 17px;
-        font-weight: 700;
-        padding: 8px 0;
-        cursor: pointer;
-      }
     }
   }
 
@@ -104,7 +80,7 @@ export default {
     justify-content: space-around;
   }
 
-  &__quantity {
+  &__counter-product {
     display: flex;
     border-radius: 10px;
     overflow: hidden;
@@ -142,6 +118,34 @@ export default {
     width: 100%;
     height: 40px;
     border-radius: 10px;
+  }
+}
+
+.dough {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 7px;
+
+  div {
+    width: 132px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 700;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+}
+
+.diameter {
+  display: flex;
+  justify-content: space-between;
+  div {
+    width: 86px;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 700;
+    padding: 8px 0;
+    cursor: pointer;
   }
 }
 </style>

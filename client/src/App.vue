@@ -1,13 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      |
-      <router-link to="/about">About</router-link>
-      |
-      <router-link to="/pizza">Pizza</router-link>
+    <div class="app-inner">
+      <div id="nav">
+        <router-link to="/">Home</router-link>
+        |
+        <router-link to="/about">About</router-link>
+        |
+        <router-link to="/pizza">Pizza</router-link>
+      </div>
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
 
@@ -27,14 +29,15 @@
   box-sizing: border-box;
 }
 
- :focus,
- :active {
- 	outline: none;
- }
- a:focus,
- a:active {
- 	outline: none;
- }
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
 
 nav,
 footer,
@@ -122,5 +125,11 @@ h6 {
       color: #42b983;
     }
   }
+}
+
+.app-inner {
+  max-width: 1230px;
+  padding: 0 15px;
+  margin: 0 auto;
 }
 </style>
