@@ -2,10 +2,13 @@ const {Schema, model} = require('mongoose')
 
 const Pizza = new Schema({
     name: {type: String, unique: true, required: true},
-    category: {
+    categoryId: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required: true
+    },
+    imageSrc:{
+        type: String,
     },
     diameter: {
         small: {

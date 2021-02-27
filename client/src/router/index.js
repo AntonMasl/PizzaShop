@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import PizzasView from '../views/PizzasView'
+import FormCreateProduct from "@/components/FormCreateProduct";
 
 Vue.use(VueRouter)
 
@@ -22,6 +23,10 @@ const routes = [
     {
         path: '/pizza',
         component: PizzasView
+    },
+    {
+        path: '/form',
+        component: FormCreateProduct
     }
 ]
 

@@ -3,29 +3,34 @@ const Category = require('../models/Category')
 
 class PizzaController {
     async create(req, res) {
+        console.log(req.file)
         try {
             let {
                 name,
-                categoryName,
+                categoryId,
                 weightOnTraditionalDough,
                 weightOnSmallDough,
                 price,
                 foodValue,
                 description
             } = req.body
-            const category = await Category.findOne({name: categoryName})
+            const category = await Category.findOne({_id: categoryId})
+            if (category.name !== 'pizza') return
             const pizza = new Pizza({
                 name,
-                category: category._id,
-                weightOnTraditionalDough,
-                weightOnSmallDough,
-                price,
-                foodValue,
+                categoryId,
+                imageSrc: req.file ? req.file.path.slice(8) : '',
+                weightOnTraditionalDough: JSON.parse(weightOnTraditionalDough),
+                weightOnSmallDough: JSON.parse(weightOnSmallDough),
+                price: JSON.parse(price),
+                foodValue: JSON.parse(foodValue),
                 description
             })
             await pizza.save()
-            return res.json({message: "Пицца успешно создана"})
+            console.log(pizza)
+            return res.json(pizza)
         } catch (error) {
+            console.log(error)
             res.json({message: "Error"})
         }
     }

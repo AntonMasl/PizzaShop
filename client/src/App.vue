@@ -7,6 +7,8 @@
         <router-link to="/about">About</router-link>
         |
         <router-link to="/pizza">Pizza</router-link>
+        |
+        <router-link to="/form">FormCreate</router-link>
       </div>
       <router-view/>
     </div>
