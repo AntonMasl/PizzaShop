@@ -46,7 +46,9 @@ export default {
   margin-left: 10px;
   border: 1px solid wheat;
 
-
+  &__img{
+    width: 250px;
+  }
   &__inner {
 
   }
