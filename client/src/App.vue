@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="app-inner">
+      <router-view/>
       <div id="nav">
         <router-link to="/">Home</router-link>
         |
@@ -10,7 +11,6 @@
         |
         <router-link to="/form">FormCreate</router-link>
       </div>
-      <router-view/>
     </div>
   </div>
 </template>
@@ -58,6 +58,21 @@ body {
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
+  position: relative;
+  &:after{
+    content: "";
+    opacity: 0.1;
+    filter: grayscale(100%);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background-image: url("~@/assets/images/bg.jpg");
+    background-size: 10%;
+    padding-bottom: 10000px;
+  }
 }
 
 input,
@@ -82,6 +97,7 @@ button::-moz-focus-inner {
 a,
 a:visited {
   text-decoration: none;
+  color: black;
 }
 
 a:hover {
@@ -113,8 +129,9 @@ h6 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: black;
 }
+
 
 #nav {
   padding: 30px;
@@ -128,7 +145,6 @@ h6 {
     }
   }
 }
-
 .app-inner {
   max-width: 1230px;
   padding: 0 15px;

@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="pizzas-view">
+    <Header/>
+    <Menu/>
     <PizzaList :pizzas="allPizzas"/>
   </div>
 </template>
@@ -7,9 +9,11 @@
 
 import {mapGetters, mapActions} from 'vuex';
 import PizzaList from "@/components/PizzaList";
+import Header from "@/components/Header";
+import Menu from "@/components/Menu";
 
 export default {
-  components: {PizzaList},
+  components: {Menu, Header, PizzaList},
   mounted() {
     this.getPizzas()
   },
@@ -22,3 +26,7 @@ export default {
   },
 }
 </script>
+
+<style>
+
+</style>

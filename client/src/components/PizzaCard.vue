@@ -1,6 +1,5 @@
 <template>
   <li class="card">
-
     <div class="card__inner">
       <img class="card__img" :src="`http://localhost:3000/${pizza.imageSrc}`" alt="">
       <div class="card__name">{{ pizza.name }}</div>
