@@ -2,18 +2,19 @@
   <div id="app">
     <div class="app-inner">
       <router-view/>
-      <div id="nav">
-        <router-link to="/">Home</router-link>
-        |
-        <router-link to="/about">About</router-link>
-        |
-        <router-link to="/pizza">Pizza</router-link>
-        |
-        <router-link to="/form">FormCreate</router-link>
-      </div>
     </div>
   </div>
 </template>
+
+<script>
+
+
+export default {
+  mounted() {
+    this.$router.push({path: '/pizzas'}).catch(()=>{})
+  }
+}
+</script>
 
 <style lang="scss">
 /*Обнуление*/
@@ -59,7 +60,8 @@ body {
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   position: relative;
-  &:after{
+
+  &:after {
     content: "";
     opacity: 0.1;
     filter: grayscale(100%);
@@ -128,23 +130,9 @@ h6 {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: black;
 }
 
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
 .app-inner {
   max-width: 1230px;
   padding: 0 15px;

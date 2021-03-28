@@ -1,28 +1,43 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import PizzasView from '../views/PizzasView'
+import PizzasView from '@/views/PizzasView'
 import FormCreateProduct from "@/components/FormCreateProduct";
+import DessertsView from "@/views/DessertsView";
+import SaladsView from "@/views/SaladsView";
+import DrinksView from "@/views/DrinksView";
+import SaucesView from "@/views/SaucesView";
+import PizzaItemView from "@/views/PizzaItemView";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-        name: 'Home',
-        component: Home
+
     },
     {
-        path: '/about',
-        name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    },
-    {
-        path: '/pizza',
+        path: '/pizzas',
         component: PizzasView
+    },
+    {
+        path: '/pizzas/:id',
+        component: PizzaItemView
+    },
+    {
+        path: '/salads',
+        component: SaladsView
+    },
+    {
+        path: '/desserts',
+        component: DessertsView
+    },
+    {
+        path: '/drinks',
+        component: DrinksView
+    },
+    {
+        path: '/sauces',
+        component: SaucesView
     },
     {
         path: '/form',

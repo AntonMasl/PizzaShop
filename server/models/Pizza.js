@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose')
 
 const Pizza = new Schema({
     name: {type: String, unique: true, required: true},
-    categoryId: {
+    category: {
         type: Schema.Types.ObjectId,
         ref: 'Category',
         required: true
@@ -24,14 +24,6 @@ const Pizza = new Schema({
             default: 40
         }
     },
-    // typeOfDough: {
-    //     slim:{
-    //         type: String,
-    //         default: 'тонкое'
-    //     },
-    //     traditional
-    //     default: ["тонкое", "традиционное"]
-    // },
     weightOnTraditionalDough: {
         //type: [Number],
         small: {
@@ -77,7 +69,7 @@ const Pizza = new Schema({
     },
     foodValue: {
         energyValue: {type: Number},
-        belki: {type: Number},
+        proteins: {type: Number},
         fatСontent: {type: Number},
         carbohydrates: {type: Number}
     },

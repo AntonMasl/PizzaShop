@@ -28,7 +28,7 @@
       <pre>
         foodValue:
           energyValue: <input type="number" v-model.number="foodValue.energyValue">
-          belki:<input type="number" v-model.number="foodValue.belki">
+          proteins:<input type="number" v-model.number="foodValue.proteins">
           fatСontent:<input type="number" v-model.number="foodValue.fatСontent">
           carbohydrates:<input type="number" v-model.number="foodValue.carbohydrates">
       </pre>
@@ -72,7 +72,7 @@ export default {
       },
       foodValue: {
         energyValue: 100,
-        belki: 100,
+        proteins: 100,
         fatСontent: 100,
         carbohydrates: 100
       },
@@ -81,32 +81,20 @@ export default {
   },
   async mounted() {
     this.categories = await this.getCategory()
-    console.log(this.categories)
   },
   methods: {
     fileChange(e) {
       this.image = e.target.files[0]
-      console.log(this.image)
     },
     async getCategory() {
-      const responce = await axios.get('http://localhost:3000/api/pizza/category')
+      const responce = await axios.get('http://localhost:3000/api/category')
       return responce.data
     },
     async createPizza() {
-      // const newPizza = {
-      //   name: this.name,
-      //   categoryId: this.selectedCategoryId,
-      //   diameter: this.diameter,
-      //   weightOnTraditionalDough: this.weightOnTraditionalDough,
-      //   weightOnSmallDough: this.weightOnSmallDough,
-      //   price: this.price,
-      //   foodValue: this.foodValue,
-      //   description: this.description
-      // }
       const formData = new FormData()
       formData.append('name', this.name)
       formData.append('image', this.image)
-      formData.append('categoryId', this.selectedCategoryId)
+      formData.append('category', this.selectedCategoryId)
       formData.append('weightOnTraditionalDough', JSON.stringify(this.weightOnTraditionalDough))
       formData.append('weightOnSmallDough', JSON.stringify(this.weightOnSmallDough))
       formData.append('price', JSON.stringify(this.price))

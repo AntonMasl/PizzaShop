@@ -71,6 +71,7 @@ export default {}
   border-radius: 10px;
   transition: 0.3s;
   border: 1px solid $v_orange;
+  text-align: center;
 
   &::before {
     content: "\f2bd";

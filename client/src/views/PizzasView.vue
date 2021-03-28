@@ -1,5 +1,5 @@
 <template>
-  <div class="pizzas-view">
+  <div>
     <Header/>
     <Menu/>
     <PizzaList :pizzas="allPizzas"/>

@@ -1,8 +1,15 @@
 <template>
-  <li class="card">
+  <li class="card" :class="{'card-active': isActive,}">
     <div class="card__inner">
-      <img class="card__img" :src="`http://localhost:3000/${pizza.imageSrc}`" alt="">
-      <div class="card__name">{{ pizza.name }}</div>
+      <div class="card_link-info"
+           @click="showItemPage"
+           @mouseover="isActive=true"
+           @mouseout="isActive=false">
+        <div class="card__img">
+          <img :src="`http://localhost:3000/${pizza.imageSrc}`" alt="">
+        </div>
+        <div class="card__name">{{ pizza.name }}</div>
+      </div>
       <div class="card__specification-pizza">
         <div class="dough">
           <div class="active">Тонкое</div>
@@ -31,29 +38,69 @@
 </template>
 
 <script>
+import {mapMutations, mapActions} from "vuex";
+import router from "@/router";
+
 export default {
-  props: ['pizza']
+  props: ['pizza'],
+  data() {
+    return {
+      isActive: false
+    }
+
+  },
+  methods: {
+    // ...mapActions(['showPizzaItem'])
+    // ...mapMutations(['showPizzaItemView']),
+    showItemPage() {
+      // this.showPizzaItemView(this.pizza._id)
+      this.$router.push({path: `/pizzas/${this.pizza._id}`})
+    },
+
+  }
 }
 </script>
 
 <style lang="scss" scoped>
+.card-active {
+  box-shadow: 0 0 15px 8px $v_orange;
+  border: 1px solid $v_orange !important;
+}
+
 .card {
   max-width: 280px;
-  //box-shadow: 0 0 10px black;
   margin-bottom: 50px;
   margin-right: 10px;
   margin-left: 10px;
-  border: 1px solid wheat;
+  border: 1px solid black;
+  background-color: white;
+  text-align: center;
+  border-radius: 15px;
+  overflow: hidden;
 
-  &__img{
-    width: 250px;
+  &:hover {
+    border: 1px solid $v_orange
   }
-  &__inner {
 
+  .card_link-info {
+    cursor: pointer;
   }
 
   &__img {
-    margin-bottom: 11px;
+    height: 275px;
+    position: relative;
+
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__inner {
+
   }
 
   &__name {
@@ -118,8 +165,14 @@ export default {
 
   &__btn-buy {
     width: 100%;
-    height: 40px;
-    border-radius: 10px;
+    height: 50px;
+    font-size: 18px;
+    transition: 0.3s;
+
+    &:hover {
+      color: white;
+      background-color: $v_orange;
+    }
   }
 }
 
@@ -141,6 +194,7 @@ export default {
 .diameter {
   display: flex;
   justify-content: space-between;
+
   div {
     width: 86px;
     font-size: 14px;

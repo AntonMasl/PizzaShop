@@ -3,22 +3,21 @@ const Category = require('../models/Category')
 
 class PizzaController {
     async create(req, res) {
-        console.log(req.file)
         try {
             let {
                 name,
-                categoryId,
+                category,
                 weightOnTraditionalDough,
                 weightOnSmallDough,
                 price,
                 foodValue,
                 description
             } = req.body
-            const category = await Category.findOne({_id: categoryId})
-            if (category.name !== 'pizza') return
+            const selectCategory = await Category.findOne({_id: category})
+            if (selectCategory.name !== 'pizza') return
             const pizza = new Pizza({
                 name,
-                categoryId,
+                category,
                 imageSrc: req.file ? req.file.path.slice(8) : '',
                 weightOnTraditionalDough: JSON.parse(weightOnTraditionalDough),
                 weightOnSmallDough: JSON.parse(weightOnSmallDough),
@@ -31,28 +30,31 @@ class PizzaController {
             return res.json(pizza)
         } catch (error) {
             console.log(error)
-            res.json({message: "Error"})
+            return res.json({message: "Error"})
         }
     }
 
 
     async getAll(req, res) {
         try {
-            const allPizza = await Pizza.find().populate('category')
-            res.json(allPizza)
+            const allPizza = await Pizza.find()
+            return  res.json(allPizza)
         } catch (error) {
-            res.json({"message": "Error"})
+            return res.json({"message": "Error"})
         }
     }
 
-    async getOne() {
+    async getOne(req, res) {
+        const {id} = req.params
+        const pizza =await Pizza.findOne({_id: id}).populate('category')
 
+        return res.json(pizza)
     }
 
     async delete(req, res) {
         let {id} = req.body
         const pizza = await Pizza.findByIdAndDelete(id)
-        res.json({message: `Удалена пицца: ${pizza.name}`})
+        return res.json({message: `Удалена пицца: ${pizza.name}`})
     }
 }
 
