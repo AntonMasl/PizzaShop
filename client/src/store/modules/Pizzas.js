@@ -1,11 +1,9 @@
 import axios from "axios";
-import router from "@/router"
 
 export default {
     state: {
         pizzas: [],
         pizza: {},
-        loading: true
     },
 
     actions: {
@@ -21,8 +19,6 @@ export default {
             try {
                 const res = await axios.get(`http://localhost:3000/api/pizza/${id}`)
                 context.commit('updatePizzaItem', res.data)
-                const loading = false
-                context.commit('isLoaded', loading)
             } catch (error) {
                 console.log(error)
             }
@@ -39,9 +35,6 @@ export default {
         updatePizzaItem(state, pizza) {
             state.pizza = pizza
         },
-        isLoaded(state, loading) {
-            state.loading = loading
-        },
 
         // async showPizzaItemView(state, pizzaId) {
         //     state.pizzaId = pizzaId
@@ -57,9 +50,7 @@ export default {
         pizzaItem(state) {
             return state.pizza
         },
-        loading(state) {
-            return state.loading
-        }
+
 
     }
 }

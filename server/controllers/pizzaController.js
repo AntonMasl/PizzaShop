@@ -37,7 +37,7 @@ class PizzaController {
 
     async getAll(req, res) {
         try {
-            const allPizza = await Pizza.find()
+            const allPizza = await Pizza.find().populate('category')
             return  res.json(allPizza)
         } catch (error) {
             return res.json({"message": "Error"})
@@ -47,7 +47,6 @@ class PizzaController {
     async getOne(req, res) {
         const {id} = req.params
         const pizza =await Pizza.findOne({_id: id}).populate('category')
-
         return res.json(pizza)
     }
 

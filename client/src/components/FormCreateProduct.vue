@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="createPizza">
+    {{categories}}
     <label>name: <input type="text" v-model="name"></label>
     <div><input type="file" @change="fileChange"></div>
     <div>
@@ -80,14 +81,15 @@ export default {
     }
   },
   async mounted() {
-    this.categories = await this.getCategory()
+    this.categories = await this.getCategories()
   },
   methods: {
     fileChange(e) {
       this.image = e.target.files[0]
     },
-    async getCategory() {
+    async getCategories() {
       const responce = await axios.get('http://localhost:3000/api/category')
+      console.log(responce)
       return responce.data
     },
     async createPizza() {
@@ -101,6 +103,14 @@ export default {
       formData.append('foodValue', JSON.stringify(this.foodValue))
       formData.append('description', this.description)
       await axios.post('http://localhost:3000/api/pizza', formData)
+    }
+  },
+  watch: {
+    selectedCategoryId(val){
+      console.log(val)
+      console.log(this.categories)
+       let a = this.categories.find(item=>item._id === val)
+      console.log(a)
     }
   }
 }

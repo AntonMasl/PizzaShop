@@ -1,19 +1,19 @@
 <template>
   <ul>
-    <PizzaCard
-        v-for="pizza in pizzas"
-        :pizza="pizza"
-        :key="pizza.id"
+    <ItemCard
+        v-for="item in items"
+        :item="item"
+        :key="item.id"
     />
   </ul>
 </template>
 
 <script>
-import PizzaCard from "@/components/PizzaCard";
+import ItemCard from "@/components/ItemCard";
 
 export default {
-  components: {PizzaCard},
-  props: ['pizzas']
+  components: {ItemCard},
+  props: ['items']
 }
 </script>
 

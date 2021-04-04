@@ -2,21 +2,30 @@
   <div>
     <Header/>
     <Menu/>
-    <PizzaList :pizzas="allPizzas"/>
+    <Loader v-if="loading"/>
+    <ItemList :items="allPizzas"/>
   </div>
 </template>
 <script>
 
-import {mapGetters, mapActions} from 'vuex';
-import PizzaList from "@/components/PizzaList";
+import {mapGetters, mapActions, mapMutations} from 'vuex';
+import ItemList from "@/components/ItemList";
 import Header from "@/components/Header";
 import Menu from "@/components/Menu";
+import Loader from "@/components/loader";
 
 export default {
-  components: {Menu, Header, PizzaList},
-  mounted() {
-    this.getPizzas()
+  components: {Loader, Menu, Header, ItemList},
+  data(){
+    return{
+      loading: true
+    }
   },
+  async mounted() {
+    await this.getPizzas()
+    this.loading = false
+  },
+
   computed: {
     ...mapGetters(['allPizzas'])
   },

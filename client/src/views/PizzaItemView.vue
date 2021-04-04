@@ -16,20 +16,24 @@ import Loader from "@/components/loader";
 
 export default {
   components: {Loader, PizzaItem, Menu, Header},
-
-  mounted() {
-    this.getOnePizza(this.$route.params.id)
+  data(){
+    return{
+      loading: true
+    }
   },
+  async mounted() {
+    await this.getOnePizza(this.$route.params.id)
+    this.loading = false
+  },
+
   destroyed() {
-    this.isLoaded(true)
-  },
 
+  },
   methods: {
     ...mapActions(['getOnePizza']),
-    ...mapMutations(['isLoaded'])
   },
   computed: {
-    ...mapGetters(['pizzaItem', "loading"])
+    ...mapGetters(['pizzaItem'])
   },
 }
 </script>

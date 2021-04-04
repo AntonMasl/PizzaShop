@@ -13,7 +13,7 @@
         <div class="item__foodValue">
           <div class="title">Пищевая ценость на 100 г</div>
           <ul>
-            <li><span>Энерг. ценность</span><span>{{ pizzaItem.foodValue.energyValue }} ккал</span></li>
+            <li><span>Энерг. ценность</span><span>{{pizzaItem.foodValue.energyValue}} ккал</span></li>
             <li><span>Белки</span><span>{{ pizzaItem.foodValue.proteins }} г</span></li>
             <li><span>Жиры</span><span>{{ pizzaItem.foodValue.fatСontent }} г</span></li>
             <li><span>Углеводы</span><span>{{ pizzaItem.foodValue.carbohydrates }} г</span></li>
