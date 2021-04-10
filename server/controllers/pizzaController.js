@@ -1,5 +1,4 @@
 const Pizza = require('../models/Pizza')
-const Category = require('../models/Category')
 
 class PizzaController {
     async create(req, res) {
@@ -9,19 +8,17 @@ class PizzaController {
                 category,
                 weightOnTraditionalDough,
                 weightOnSmallDough,
-                price,
+                prices,
                 foodValue,
                 description
             } = req.body
-            const selectCategory = await Category.findOne({_id: category})
-            if (selectCategory.name !== 'pizza') return
             const pizza = new Pizza({
                 name,
                 category,
                 imageSrc: req.file ? req.file.path.slice(8) : '',
                 weightOnTraditionalDough: JSON.parse(weightOnTraditionalDough),
                 weightOnSmallDough: JSON.parse(weightOnSmallDough),
-                price: JSON.parse(price),
+                prices: JSON.parse(prices),
                 foodValue: JSON.parse(foodValue),
                 description
             })

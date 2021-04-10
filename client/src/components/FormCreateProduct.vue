@@ -1,31 +1,38 @@
 <template>
-  <form @submit.prevent="createPizza">
-    {{categories}}
+  <form @submit.prevent="createProduct">
     <label>name: <input type="text" v-model="name"></label>
     <div><input type="file" @change="fileChange"></div>
     <div>
       <select v-model="selectedCategoryId">
         <option disabled value="">выбирите категорию</option>
-        <option v-for="category in categories" :value="category._id">{{ category.name }}</option>
+        <option v-for="category in categories"
+                :value="category._id">{{ category.name }}
+        </option>
       </select>
-      <pre>
+      <pre v-if="selectedCategoryName === 'pizza'">
         weightOnTraditionalDough:
           small: <input type="number" v-model.number="weightOnTraditionalDough.small">
           middle:<input type="number" v-model.number="weightOnTraditionalDough.middle">
           big:<input type="number" v-model.number="weightOnTraditionalDough.big">
       </pre>
-      <pre>
+      <pre v-if="selectedCategoryName === 'pizza'">
         weightOnSmallDough:
           small: <input type="number" v-model.number="weightOnSmallDough.small">
           middle:<input type="number" v-model.number="weightOnSmallDough.middle">
           big:<input type="number" v-model.number="weightOnSmallDough.big">
       </pre>
-      <pre>
-        price:
-          small: <input type="number" v-model.number="price.small">
-          middle:<input type="number" v-model.number="price.middle">
-          big:<input type="number" v-model.number="price.big">
+      <pre v-if="selectedCategoryName === 'pizza'">
+        prices:
+          small: <input type="number" v-model.number="prices.small">
+          middle:<input type="number" v-model.number="prices.middle">
+          big:<input type="number" v-model.number="prices.big">
       </pre>
+      <div v-if="selectedCategoryName !== 'pizza'">
+        weight: <input type="number" v-model.number="weight">
+      </div>
+      <div v-if="selectedCategoryName !== 'pizza'">
+        price: <input type="number" v-model.number="price">
+      </div>
       <pre>
         foodValue:
           energyValue: <input type="number" v-model.number="foodValue.energyValue">
@@ -55,7 +62,9 @@ export default {
       //   id: '',
       //   name: ''
       // },
+      selectedCategoryName: '',
       selectedCategoryId: '',
+      weight: 340,
       weightOnTraditionalDough: {
         small: 100,
         middle: 100,
@@ -66,11 +75,8 @@ export default {
         middle: 100,
         big: 100
       },
-      price: {
-        small: 100,
-        middle: 100,
-        big: 100
-      },
+      prices: {small: 100, middle: 100, big: 100},
+      price: 200,
       foodValue: {
         energyValue: 100,
         proteins: 100,
@@ -82,6 +88,7 @@ export default {
   },
   async mounted() {
     this.categories = await this.getCategories()
+    console.log(this.price)
   },
   methods: {
     fileChange(e) {
@@ -92,25 +99,28 @@ export default {
       console.log(responce)
       return responce.data
     },
-    async createPizza() {
+    async createProduct() {
       const formData = new FormData()
       formData.append('name', this.name)
       formData.append('image', this.image)
       formData.append('category', this.selectedCategoryId)
-      formData.append('weightOnTraditionalDough', JSON.stringify(this.weightOnTraditionalDough))
-      formData.append('weightOnSmallDough', JSON.stringify(this.weightOnSmallDough))
-      formData.append('price', JSON.stringify(this.price))
+      if (this.selectedCategoryName === 'pizza') {
+        formData.append('weightOnTraditionalDough', JSON.stringify(this.weightOnTraditionalDough))
+        formData.append('weightOnSmallDough', JSON.stringify(this.weightOnSmallDough))
+        formData.append('prices', JSON.stringify(this.prices))
+      } else {
+        formData.append('price', this.price)
+        formData.append('weight', this.weight)
+      }
       formData.append('foodValue', JSON.stringify(this.foodValue))
       formData.append('description', this.description)
-      await axios.post('http://localhost:3000/api/pizza', formData)
+      await axios.post(`http://localhost:3000/api/${this.selectedCategoryName}`, formData)
     }
   },
   watch: {
-    selectedCategoryId(val){
-      console.log(val)
-      console.log(this.categories)
-       let a = this.categories.find(item=>item._id === val)
-      console.log(a)
+    selectedCategoryId(val) {
+      this.selectedCategoryName = this.categories.find(item => item._id === val).name
+      console.log(this.selectedCategoryName)
     }
   }
 }

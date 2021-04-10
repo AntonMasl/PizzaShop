@@ -7,6 +7,7 @@ import SaladsView from "@/views/SaladsView";
 import DrinksView from "@/views/DrinksView";
 import SaucesView from "@/views/SaucesView";
 import PizzaItemView from "@/views/PizzaItemView";
+import SaladItemView from "@/views/SaladItemView";
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,10 @@ const routes = [
     {
         path: '/salads',
         component: SaladsView
+    },
+    {
+        path: '/salads/:id',
+        component: SaladItemView
     },
     {
         path: '/desserts',

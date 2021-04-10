@@ -1,53 +1,54 @@
 <template>
   <div class="item">
-
     <div class="item__inner">
       <div class="item__left">
         <button class="item__btn-back" @click="$router.go(-1)">< Назад</button>
         <div class="item__img">
-          <img :src="`http://localhost:3000/${pizzaItem.imageSrc}`" alt="">
+          <img :src="`http://localhost:3000/${item.imageSrc}`" alt="">
         </div>
       </div>
       <div class="item__right">
-        <div class="item__name">{{ pizzaItem.name }}</div>
+        <div class="item__name">{{ item.name }}</div>
         <div class="item__foodValue">
           <div class="title">Пищевая ценость на 100 г</div>
           <ul>
-            <li><span>Энерг. ценность</span><span>{{pizzaItem.foodValue.energyValue}} ккал</span></li>
-            <li><span>Белки</span><span>{{ pizzaItem.foodValue.proteins }} г</span></li>
-            <li><span>Жиры</span><span>{{ pizzaItem.foodValue.fatСontent }} г</span></li>
-            <li><span>Углеводы</span><span>{{ pizzaItem.foodValue.carbohydrates }} г</span></li>
+            <li><span>Энерг. ценность</span><span>{{ item.foodValue.energyValue }} ккал</span></li>
+            <li><span>Белки</span><span>{{ item.foodValue.proteins }} г</span></li>
+            <li><span>Жиры</span><span>{{ item.foodValue.fatСontent }} г</span></li>
+            <li><span>Углеводы</span><span>{{ item.foodValue.carbohydrates }} г</span></li>
           </ul>
         </div>
         <div class="item__description">
           <div class="title">Описание</div>
-          <div>{{pizzaItem.description}}</div>
+          <div>{{ item.description }}</div>
         </div>
-        <div class="item__dough-diameter">
-          <div class="title">Тесто</div>
-          <div class="buttons">
-            <button class="btn btn-active">Традиционное</button>
-            <button class="btn">Тонкое</button>
+        <div v-if="item.category.name==='pizza'">
+          <div class="item__dough-diameter">
+            <div class="title">Тесто</div>
+            <div class="buttons">
+              <button class="btn btn-active">Традиционное</button>
+              <button class="btn">Тонкое</button>
+            </div>
           </div>
-        </div>
-        <div class="item__size">
-          <div class="title">Размер</div>
-          <div class="buttons-size">
-            <button class="small btn btn-active">
-              <span>{{ pizzaItem.diameter.small }} см</span>
-              <span>{{ pizzaItem.weightOnSmallDough.small }} г</span>
-              <span>{{ pizzaItem.price.small }} руб</span>
-            </button>
-            <button class="middle btn">
-              <span>{{ pizzaItem.diameter.middle }} см</span>
-              <span>{{ pizzaItem.weightOnSmallDough.middle }} г</span>
-              <span>{{ pizzaItem.price.middle }} руб</span>
-            </button>
-            <button class="big btn">
-              <span>{{ pizzaItem.diameter.big }} см</span>
-              <span>{{ pizzaItem.weightOnSmallDough.big }} г</span>
-              <span>{{ pizzaItem.price.big }} руб</span>
-            </button>
+          <div class="item__size">
+            <div class="title">Размер</div>
+            <div class="buttons-size">
+              <button class="small btn btn-active">
+                <span>{{ item.diameter.small }} см</span>
+                <span>{{ item.weightOnSmallDough.small }} г</span>
+                <span>{{ item.prices.small }} руб</span>
+              </button>
+              <button class="middle btn">
+                <span>{{ item.diameter.middle }} см</span>
+                <span>{{ item.weightOnSmallDough.middle }} г</span>
+                <span>{{ item.prices.middle }} руб</span>
+              </button>
+              <button class="big btn">
+                <span>{{ item.diameter.big }} см</span>
+                <span>{{ item.weightOnSmallDough.big }} г</span>
+                <span>{{ item.prices.big }} руб</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="item__bottom">
@@ -57,8 +58,8 @@
             <button>+</button>
           </div>
           <div class="item__sum">
-            <div class="item__price">{{ pizzaItem.price.small }} <span>руб</span></div>
-            <div class="item__weight">{{ pizzaItem.weightOnSmallDough.small }} г</div>
+            <div class="item__price">{{ item.prices?item.prices.small:item.price }} <span>руб</span></div>
+            <div class="item__weight">{{ item.weightOnSmallDough?item.weightOnSmallDough.small:item.weight }} г</div>
           </div>
         </div>
         <button class="item__btn-buy">+ в корзину</button>
@@ -71,16 +72,17 @@
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  props: ['pizzaItem']
+  props: ['item']
 }
 </script>
 
 <style lang="scss" scoped>
-.title{
+.title {
   font-weight: 700;
   margin-bottom: 20px;
   font-size: 16px;
 }
+
 .item {
 
   &__inner {
@@ -101,7 +103,8 @@ export default {
   &__img {
     height: 100%;
     padding: 20px;
-    img{
+
+    img {
       width: 100%;
     }
   }
@@ -115,7 +118,8 @@ export default {
     font-weight: 700;
     margin-bottom: 40px;
   }
-  &__description{
+
+  &__description {
     margin-bottom: 40px;
     font-size: 14px;
   }
@@ -136,6 +140,7 @@ export default {
 
   &__dough-diameter {
     margin-bottom: 40px;
+
     .buttons {
       display: flex;
     }
@@ -252,6 +257,7 @@ export default {
       background: #F3F3F3;
     }
   }
+
   &__price {
     font-size: 26px;
     font-weight: 600;
@@ -260,7 +266,8 @@ export default {
       font-size: 22px;
     }
   }
-  &__weight{
+
+  &__weight {
     font-size: 20px;
   }
 

@@ -3,7 +3,7 @@
     <Header/>
     <Menu/>
     <Loader v-if="loading"/>
-    <PizzaItem v-else :item="pizzaItem"/>
+    <PizzaItem v-else :item="saladItem"/>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
     }
   },
   async mounted() {
-    await this.getOnePizza(this.$route.params.id)
+    await this.getOneSalad(this.$route.params.id)
     this.loading = false
   },
 
@@ -30,10 +30,10 @@ export default {
 
   },
   methods: {
-    ...mapActions(['getOnePizza']),
+    ...mapActions(['getOneSalad']),
   },
   computed: {
-    ...mapGetters(['pizzaItem'])
+    ...mapGetters(['saladItem'])
   },
 }
 </script>

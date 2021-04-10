@@ -53,7 +53,7 @@ const Pizza = new Schema({
             required: true
         }
     },
-    price: {
+    prices: {
         small: {
             type: Number,
             required: true

@@ -1,5 +1,4 @@
 const Salad = require('../models/Salad')
-const Category = require('../models/Category')
 
 class SaladController {
     async create(req, res) {
@@ -12,8 +11,6 @@ class SaladController {
                 foodValue,
                 description
             } = req.body
-            const selectCategory = await Category.findOne({_id: category})
-            if (selectCategory.name !== 'salad') return
             const salad = new Salad({
                 name,
                 category,
@@ -34,7 +31,7 @@ class SaladController {
 
     async getAll(req, res) {
         try {
-            const allSalad = await Salad.find()
+            const allSalad = await Salad.find().populate('category')
             return  res.json(allSalad)
         } catch (error) {
             return res.json({"message": "Error"})
@@ -44,7 +41,6 @@ class SaladController {
     async getOne(req, res) {
         const {id} = req.params
         const salad =await Salad.findOne({_id: id}).populate('category')
-
         return res.json(salad)
     }
 

@@ -1,6 +1,5 @@
 <template>
-  <li class="card" :class="{'card-active': isActive,}">
-    {{item}}
+  <li class="card" :class="{'card-active': isActive}">
     <div class="card__inner">
       <div class="card_link-info"
            @click="showItemPage"
@@ -11,7 +10,7 @@
         </div>
         <div class="card__name">{{ item.name }}</div>
       </div>
-      <div class="card__specification-item">
+      <div class="card__specification-pizza" v-if="item.category.name==='pizza'">
         <div class="dough">
           <div class="active">Тонкое</div>
           <div>Традиционное</div>
@@ -29,8 +28,8 @@
           <button>+</button>
         </div>
         <div class="card__sum">
-          <div class="card__price">{{ item.price.small }} <span>руб</span></div>
-          <div class="card__weight">{{ item.weightOnSmallDough.small }} г</div>
+          <div class="card__price">{{ item.prices ? item.prices.small : item.price }} <span>руб</span></div>
+          <div class="card__weight">{{ item.weightOnSmallDough ? item.weightOnSmallDough.small : item.weight }} г</div>
         </div>
       </div>
       <button class="card__btn-buy">+ в корзину</button>
@@ -69,7 +68,7 @@ export default {
 }
 
 .card {
-  max-width: 280px;
+  width: 280px;
   margin-bottom: 50px;
   margin-right: 10px;
   margin-left: 10px;
@@ -90,6 +89,7 @@ export default {
   &__img {
     height: 275px;
     position: relative;
+    margin-bottom: 15px;
 
     img {
       position: absolute;
