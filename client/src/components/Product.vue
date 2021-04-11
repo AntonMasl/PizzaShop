@@ -1,68 +1,68 @@
 <template>
-  <div class="item">
-    <div class="item__inner">
-      <div class="item__left">
-        <button class="item__btn-back" @click="$router.go(-1)">< Назад</button>
-        <div class="item__img">
-          <img :src="`http://localhost:3000/${item.imageSrc}`" alt="">
+  <div class="product">
+    <div class="product__inner">
+      <div class="product__left">
+        <button class="product__btn-back" @click="$router.go(-1)">< Назад</button>
+        <div class="product__img">
+          <img :src="`http://localhost:3000/${product.imageSrc}`" alt="">
         </div>
       </div>
-      <div class="item__right">
-        <div class="item__name">{{ item.name }}</div>
-        <div class="item__foodValue">
+      <div class="product__right">
+        <div class="product__name">{{ product.name }}</div>
+        <div class="product__foodValue">
           <div class="title">Пищевая ценость на 100 г</div>
           <ul>
-            <li><span>Энерг. ценность</span><span>{{ item.foodValue.energyValue }} ккал</span></li>
-            <li><span>Белки</span><span>{{ item.foodValue.proteins }} г</span></li>
-            <li><span>Жиры</span><span>{{ item.foodValue.fatСontent }} г</span></li>
-            <li><span>Углеводы</span><span>{{ item.foodValue.carbohydrates }} г</span></li>
+            <li><span>Энерг. ценность</span><span>{{ product.foodValue.energyValue }} ккал</span></li>
+            <li><span>Белки</span><span>{{ product.foodValue.proteins }} г</span></li>
+            <li><span>Жиры</span><span>{{ product.foodValue.fatСontent }} г</span></li>
+            <li><span>Углеводы</span><span>{{ product.foodValue.carbohydrates }} г</span></li>
           </ul>
         </div>
-        <div class="item__description">
+        <div class="product__description">
           <div class="title">Описание</div>
-          <div>{{ item.description }}</div>
+          <div>{{ product.description }}</div>
         </div>
-        <div v-if="item.category.name==='pizza'">
-          <div class="item__dough-diameter">
+        <div v-if="product.category.name==='pizza'">
+          <div class="product__dough-diameter">
             <div class="title">Тесто</div>
             <div class="buttons">
               <button class="btn btn-active">Традиционное</button>
               <button class="btn">Тонкое</button>
             </div>
           </div>
-          <div class="item__size">
+          <div class="product__size">
             <div class="title">Размер</div>
             <div class="buttons-size">
               <button class="small btn btn-active">
-                <span>{{ item.diameter.small }} см</span>
-                <span>{{ item.weightOnSmallDough.small }} г</span>
-                <span>{{ item.prices.small }} руб</span>
+                <span>{{ product.diameter.small }} см</span>
+                <span>{{ product.weightOnSmallDough.small }} г</span>
+                <span>{{ product.prices.small }} руб</span>
               </button>
               <button class="middle btn">
-                <span>{{ item.diameter.middle }} см</span>
-                <span>{{ item.weightOnSmallDough.middle }} г</span>
-                <span>{{ item.prices.middle }} руб</span>
+                <span>{{ product.diameter.middle }} см</span>
+                <span>{{ product.weightOnSmallDough.middle }} г</span>
+                <span>{{ product.prices.middle }} руб</span>
               </button>
               <button class="big btn">
-                <span>{{ item.diameter.big }} см</span>
-                <span>{{ item.weightOnSmallDough.big }} г</span>
-                <span>{{ item.prices.big }} руб</span>
+                <span>{{ product.diameter.big }} см</span>
+                <span>{{ product.weightOnSmallDough.big }} г</span>
+                <span>{{ product.prices.big }} руб</span>
               </button>
             </div>
           </div>
         </div>
-        <div class="item__bottom">
-          <div class="item__counter-product">
+        <div class="product__bottom">
+          <div class="product__counter-product">
             <button>-</button>
             <span>1</span>
             <button>+</button>
           </div>
-          <div class="item__sum">
-            <div class="item__price">{{ item.prices?item.prices.small:item.price }} <span>руб</span></div>
-            <div class="item__weight">{{ item.weightOnSmallDough?item.weightOnSmallDough.small:item.weight }} г</div>
+          <div class="product__sum">
+            <div class="product__price">{{ product.prices?product.prices.small:product.price }} <span>руб</span></div>
+            <div class="product__weight">{{ product.weightOnSmallDough?product.weightOnSmallDough.small:product.weight }} г</div>
           </div>
         </div>
-        <button class="item__btn-buy">+ в корзину</button>
+        <button class="product__btn-buy">+ в корзину</button>
       </div>
     </div>
   </div>
@@ -72,7 +72,7 @@
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-  props: ['item']
+  props: ['product']
 }
 </script>
 
@@ -83,7 +83,7 @@ export default {
   font-size: 16px;
 }
 
-.item {
+.product {
 
   &__inner {
     display: flex;
@@ -223,7 +223,7 @@ export default {
 .big {
 }
 
-.item {
+.product {
 
   &__bottom {
     padding: 0 15px;

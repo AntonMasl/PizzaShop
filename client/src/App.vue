@@ -11,7 +11,7 @@
 
 export default {
   mounted() {
-    this.$router.push({path: '/pizzas'}).catch(()=>{})
+    this.$router.push({path: '/products'}).catch(()=>{})
   }
 }
 </script>

@@ -3,26 +3,26 @@
     <Header/>
     <Menu/>
     <Loader v-if="loading"/>
-    <PizzaItem v-else :item="saladItem"/>
+    <Product v-else :product="productItem"/>
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
 import Menu from "@/components/Menu";
-import PizzaItem from "@/components/Item";
-import {mapActions, mapGetters, mapMutations} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Loader from "@/components/loader";
+import Product from "@/components/Product";
 
 export default {
-  components: {Loader, PizzaItem, Menu, Header},
+  components: {Product, Loader, Menu, Header},
   data(){
     return{
       loading: true
     }
   },
   async mounted() {
-    await this.getOneSalad(this.$route.params.id)
+    await this.getOneProduct(this.$route.params.id)
     this.loading = false
   },
 
@@ -30,10 +30,10 @@ export default {
 
   },
   methods: {
-    ...mapActions(['getOneSalad']),
+    ...mapActions(['getOneProduct']),
   },
   computed: {
-    ...mapGetters(['saladItem'])
+    ...mapGetters(['productItem'])
   },
 }
 </script>

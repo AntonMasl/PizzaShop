@@ -1,24 +1,11 @@
 <template>
   <nav class="menu">
     <ul class="menu__list">
-      <li>
-        <router-link to="/pizzas">Пицца</router-link>
-      </li>
-      <li>
-        <router-link to="/salads">Салаты</router-link>
-      </li>
-      <li>
-        <router-link to="/desserts">Десерты</router-link>
-      </li>
-      <li>
-        <router-link to="/drinks">Напитки</router-link>
-      </li>
-      <li>
-        <router-link to="/sauces">Соусы</router-link>
-      </li>
-      <li>
-        <router-link to="/form">FormCreate</router-link>
-      </li>
+      <MenuItem
+          v-for="category in allCategories"
+          :key="category._id"
+          :category="category"
+      />
     </ul>
     <a class="basket" href="#">
       <span class="summa">10000000р</span>
@@ -28,7 +15,21 @@
 </template>
 
 <script>
-export default {}
+import MenuItem from "@/components/MenuItem";
+import {mapActions, mapGetters} from "vuex";
+export default {
+  components: {MenuItem},
+  props: ['categories'],
+  async mounted() {
+    await this.getCategories()
+  },
+  methods:{
+    ...mapActions(["getCategories"])
+  },
+  computed:{
+    ...mapGetters(["allCategories"])
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -59,36 +60,36 @@ export default {}
   .menu__list {
     display: flex;
 
-    .router-link-exact-active {
-      color: $v_orange;
-      box-shadow: 0 3px 0 0 $v_orange;
+    //.router-link-exact-active {
+    //  color: $v_orange;
+    //  box-shadow: 0 3px 0 0 $v_orange;
+    //
+    //  &:hover {
+    //    color: $v_orange;
+    //  }
+    //}
 
-      &:hover {
-        color: $v_orange;
-      }
-    }
-
-    a {
-      padding-bottom: 3px;
-      display: inline-block;
-      margin-right: 15px;
-      color: black;
-      font-size: 25px;
-      font-weight: 800;
-
-      &:hover {
-        color: gray;
-      }
-    }
+    //a {
+    //  padding-bottom: 3px;
+    //  display: inline-block;
+    //  margin-right: 15px;
+    //  color: black;
+    //  font-size: 25px;
+    //  font-weight: 800;
+    //
+    //  &:hover {
+    //    color: gray;
+    //  }
+    //}
   }
 
-  li {
-    &:last-child {
-      a {
-        margin-right: 0;
-      }
-    }
-  }
+  //li {
+  //  &:last-child {
+  //    a {
+  //      margin-right: 0;
+  //    }
+  //  }
+  //}
 }
 
 .basket {

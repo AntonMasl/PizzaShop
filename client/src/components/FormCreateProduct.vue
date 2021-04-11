@@ -1,37 +1,50 @@
 <template>
   <form @submit.prevent="createProduct">
+    {{ selectedCategoryName }}
     <label>name: <input type="text" v-model="name"></label>
-    <div><input type="file" @change="fileChange"></div>
     <div>
       <select v-model="selectedCategoryId">
         <option disabled value="">выбирите категорию</option>
-        <option v-for="category in categories"
+        <option v-for="category in allCategories"
                 :value="category._id">{{ category.name }}
         </option>
       </select>
-      <pre v-if="selectedCategoryName === 'pizza'">
+    </div>
+    <div><input type="file" @change="fileChange"></div>
+    <div v-if="selectedCategoryId">
+      <div v-if="selectedCategoryName==='пиццы'">
+      <pre>
+        diameter:
+          small: <input type="number" disabled v-model.number="diameter.small">
+          middle:<input type="number" disabled v-model.number="diameter.middle">
+          big:<input type="number" disabled v-model.number="diameter.big">
+      </pre>
+        <pre>
         weightOnTraditionalDough:
           small: <input type="number" v-model.number="weightOnTraditionalDough.small">
           middle:<input type="number" v-model.number="weightOnTraditionalDough.middle">
           big:<input type="number" v-model.number="weightOnTraditionalDough.big">
       </pre>
-      <pre v-if="selectedCategoryName === 'pizza'">
+        <pre>
         weightOnSmallDough:
           small: <input type="number" v-model.number="weightOnSmallDough.small">
           middle:<input type="number" v-model.number="weightOnSmallDough.middle">
           big:<input type="number" v-model.number="weightOnSmallDough.big">
       </pre>
-      <pre v-if="selectedCategoryName === 'pizza'">
+        <pre>
         prices:
           small: <input type="number" v-model.number="prices.small">
           middle:<input type="number" v-model.number="prices.middle">
           big:<input type="number" v-model.number="prices.big">
       </pre>
-      <div v-if="selectedCategoryName !== 'pizza'">
-        weight: <input type="number" v-model.number="weight">
       </div>
-      <div v-if="selectedCategoryName !== 'pizza'">
-        price: <input type="number" v-model.number="price">
+      <div v-else>
+        <div>
+          weight: <input type="number" v-model.number="weight">
+        </div>
+        <div>
+          price: <input type="number" v-model.number="price">
+        </div>
       </div>
       <pre>
         foodValue:
@@ -51,11 +64,11 @@
 
 <script>
 import axios from "axios";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   data() {
     return {
-      categories: [],
       name: '',
       image: null,
       // category: {
@@ -64,6 +77,11 @@ export default {
       // },
       selectedCategoryName: '',
       selectedCategoryId: '',
+      diameter: {
+        small: 25,
+        middle: 32,
+        big: 40
+      },
       weight: 340,
       weightOnTraditionalDough: {
         small: 100,
@@ -87,24 +105,23 @@ export default {
     }
   },
   async mounted() {
-    this.categories = await this.getCategories()
-    console.log(this.price)
+    await this.getCategories()
+  },
+  computed:{
+    ...mapGetters(["allCategories"])
   },
   methods: {
+    ...mapActions(["getCategories"]),
     fileChange(e) {
       this.image = e.target.files[0]
-    },
-    async getCategories() {
-      const responce = await axios.get('http://localhost:3000/api/category')
-      console.log(responce)
-      return responce.data
     },
     async createProduct() {
       const formData = new FormData()
       formData.append('name', this.name)
       formData.append('image', this.image)
       formData.append('category', this.selectedCategoryId)
-      if (this.selectedCategoryName === 'pizza') {
+      if (this.selectedCategoryName === 'пиццы') {
+        formData.append('diameter', JSON.stringify(this.diameter))
         formData.append('weightOnTraditionalDough', JSON.stringify(this.weightOnTraditionalDough))
         formData.append('weightOnSmallDough', JSON.stringify(this.weightOnSmallDough))
         formData.append('prices', JSON.stringify(this.prices))
@@ -114,12 +131,12 @@ export default {
       }
       formData.append('foodValue', JSON.stringify(this.foodValue))
       formData.append('description', this.description)
-      await axios.post(`http://localhost:3000/api/${this.selectedCategoryName}`, formData)
+      await axios.post(`http://localhost:3000/api/product/`, formData)
     }
   },
   watch: {
     selectedCategoryId(val) {
-      this.selectedCategoryName = this.categories.find(item => item._id === val).name
+      this.selectedCategoryName = this.allCategories.find(item => item._id === val).name
       console.log(this.selectedCategoryName)
     }
   }

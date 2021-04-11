@@ -2,23 +2,23 @@
   <li class="card" :class="{'card-active': isActive}">
     <div class="card__inner">
       <div class="card_link-info"
-           @click="showItemPage"
+           @click="showProductPage"
            @mouseover="isActive=true"
            @mouseout="isActive=false">
         <div class="card__img">
-          <img :src="`http://localhost:3000/${item.imageSrc}`" alt="">
+          <img :src="`http://localhost:3000/${product.imageSrc}`" alt="">
         </div>
-        <div class="card__name">{{ item.name }}</div>
+        <div class="card__name">{{ product.name }}</div>
       </div>
-      <div class="card__specification-pizza" v-if="item.category.name==='pizza'">
+      <div class="card__specification-pizza" v-if="product.category?product.category.name==='пиццы':''">
         <div class="dough">
           <div class="active">Тонкое</div>
           <div>Традиционное</div>
         </div>
         <div class="diameter">
-          <div class="active">{{ item.diameter.small }}</div>
-          <div>{{ item.diameter.middle }}</div>
-          <div>{{ item.diameter.big }}</div>
+          <div class="active">{{ product.diameter?product.diameter.small:'' }}</div>
+          <div>{{ product.diameter?product.diameter.middle:'' }}</div>
+          <div>{{ product.diameter?product.diameter.big:'' }}</div>
         </div>
       </div>
       <div class="card__bottom">
@@ -28,8 +28,8 @@
           <button>+</button>
         </div>
         <div class="card__sum">
-          <div class="card__price">{{ item.prices ? item.prices.small : item.price }} <span>руб</span></div>
-          <div class="card__weight">{{ item.weightOnSmallDough ? item.weightOnSmallDough.small : item.weight }} г</div>
+          <div class="card__price">{{ product.prices ? product.prices.small : product.price }} <span>руб</span></div>
+          <div class="card__weight">{{ product.weightOnSmallDough ? product.weightOnSmallDough.small : product.weight }} г</div>
         </div>
       </div>
       <button class="card__btn-buy">+ в корзину</button>
@@ -38,11 +38,9 @@
 </template>
 
 <script>
-import {mapMutations, mapActions} from "vuex";
-import router from "@/router";
 
 export default {
-  props: ['item'],
+  props: ['product'],
   data() {
     return {
       isActive: false
@@ -50,13 +48,9 @@ export default {
 
   },
   methods: {
-    // ...mapActions(['showPizzaItem'])
-    // ...mapMutations(['showPizzaItemView']),
-    showItemPage() {
-      // this.showPizzaItemView(this.pizza._id)
-      this.$router.push({path: `/${this.item.category.name}s/${this.item._id}`})
+    showProductPage() {
+      this.$router.push({path: `/products/${this.product._id}`})
     },
-
   }
 }
 </script>
