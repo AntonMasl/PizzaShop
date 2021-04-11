@@ -1,7 +1,7 @@
 <template>
-  <li :class="{active: category._id === categoryId}"
+  <li
+      :class="{active: category._id === categoryId}"
       @click="setCategoryId"
-
   >{{ category.name }}</li>
 </template>
 
@@ -15,10 +15,11 @@ export default {
   },
   methods: {
     setCategoryId() {
+      this.$router.push("/products",()=>{})
       this.updateCategoryId(this.category._id)
     },
     ...mapMutations(['updateCategoryId']),
-  },
+  }
 }
 
 </script>

@@ -3,22 +3,28 @@ import VueRouter from 'vue-router'
 import FormCreateProduct from "@/components/FormCreateProduct";
 import ProductsView from "@/views/ProductsView";
 import ProductView from "@/views/ProductView";
+import ProductMainView from "@/views/ProductMainView";
 
 Vue.use(VueRouter)
 
 const routes = [
     {
         path: '/',
-
+        redirect: '/products'
     },
     {
         path: '/products',
-        component: ProductsView
+        component: ProductMainView,
+        children: [{
+            path: '', component: ProductsView
+        },
+            {path: ":id", component: ProductView}]
     },
-    {
-        path: '/products/:id',
-        component: ProductView
-    },
+
+    // {
+    //     path: '/products/:id',
+    //     component: ProductView
+    // },
     // {
     //     path: '/pizzas',
     //     component: ProductsView

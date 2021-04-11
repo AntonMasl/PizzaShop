@@ -21,6 +21,7 @@ export default {
   components: {MenuItem},
   props: ['categories'],
   async mounted() {
+    console.log(1)
     await this.getCategories()
   },
   methods:{

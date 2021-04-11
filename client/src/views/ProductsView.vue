@@ -1,11 +1,5 @@
 <template>
   <div>
-    {{categoryId}}
-    <Header/>
-    <Menu/>
-    <button class="link_create">
-      <router-link to="/form">FormCreate</router-link>
-    </button>
     <Loader v-if="loading"/>
     <ProductList v-else :products="allProducts"/>
   </div>

@@ -10,9 +10,7 @@
 
 
 export default {
-  mounted() {
-    this.$router.push({path: '/products'}).catch(()=>{})
-  }
+
 }
 </script>
 

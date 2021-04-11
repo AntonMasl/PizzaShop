@@ -1,7 +1,5 @@
 <template>
   <div>
-    <Header/>
-    <Menu/>
     <Loader v-if="loading"/>
     <Product v-else :product="productItem"/>
   </div>
@@ -26,9 +24,6 @@ export default {
     this.loading = false
   },
 
-  destroyed() {
-
-  },
   methods: {
     ...mapActions(['getOneProduct']),
   },

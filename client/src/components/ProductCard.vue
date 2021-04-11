@@ -1,5 +1,6 @@
 <template>
   <li class="card" :class="{'card-active': isActive}">
+    {{product.category}}
     <div class="card__inner">
       <div class="card_link-info"
            @click="showProductPage"
@@ -48,9 +49,11 @@ export default {
 
   },
   methods: {
+
     showProductPage() {
       this.$router.push({path: `/products/${this.product._id}`})
     },
+
   }
 }
 </script>
