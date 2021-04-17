@@ -85,6 +85,9 @@ export default {
 
 .product {
 
+  &__btn-buy{
+    background-color: #efefef;
+  }
   &__inner {
     display: flex;
   }

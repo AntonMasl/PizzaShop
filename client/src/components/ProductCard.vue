@@ -126,6 +126,9 @@ export default {
     display: flex;
     justify-content: space-around;
   }
+  &__btn-buy{
+    background-color: #efefef;
+  }
 
   &__counter-product {
     display: flex;

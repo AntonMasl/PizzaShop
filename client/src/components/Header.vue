@@ -12,7 +12,7 @@
         <div class="header__top-item clock"><span>Круглосуточно</span></div>
       </div>
       <a class="lk" href="#">
-        <div>Личный кабинет</div>
+        <div>Войти</div>
       </a>
     </div>
   </header>

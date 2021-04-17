@@ -33,10 +33,6 @@ export default {
 }
 </script>
 
-<style>
-    button{
-      width: 100px;
-      height: 30px;
-      background-color: #ff9900;
-    }
+<style scoped>
+
 </style>

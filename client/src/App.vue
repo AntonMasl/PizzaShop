@@ -71,6 +71,7 @@ body {
     z-index: -1;
     background-image: url("~@/assets/images/bg.jpg");
     background-size: 10%;
+    background-repeat: repeat;
     padding-bottom: 10000px;
   }
 }
