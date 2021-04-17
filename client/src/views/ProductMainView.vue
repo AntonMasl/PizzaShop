@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{categoryId}}
     <Header/>
     <Menu/>
     <button class="link_create">

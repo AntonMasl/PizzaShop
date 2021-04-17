@@ -7,13 +7,12 @@
 <script>
 
 import {mapGetters, mapActions} from 'vuex';
-import Header from "@/components/Header";
 import Menu from "@/components/Menu";
 import Loader from "@/components/loader";
 import ProductList from "@/components/ProductList";
 
 export default {
-  components: {ProductList, Loader, Menu, Header},
+  components: {ProductList, Loader, Menu},
   async mounted() {
     await this.getProducts(this.categoryId)
   },

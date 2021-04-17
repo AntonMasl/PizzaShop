@@ -4,6 +4,9 @@ import FormCreateProduct from "@/components/FormCreateProduct";
 import ProductsView from "@/views/ProductsView";
 import ProductView from "@/views/ProductView";
 import ProductMainView from "@/views/ProductMainView";
+import AuthView from "@/views/AuthView";
+import Login from "@/components/Login";
+import Registration from "@/components/Registration";
 
 Vue.use(VueRouter)
 
@@ -15,10 +18,19 @@ const routes = [
     {
         path: '/products',
         component: ProductMainView,
-        children: [{
-            path: '', component: ProductsView
-        },
-            {path: ":id", component: ProductView}]
+        children: [
+            {path: '', component: ProductsView},
+            {path: ":id", component: ProductView}
+        ]
+    },
+    {
+        path: '/auth',
+        component: AuthView,
+        redirect: '/auth/login',
+        children: [
+            {path: 'login', component: Login},
+            {path: "registration", component: Registration}
+        ]
     },
 
     // {

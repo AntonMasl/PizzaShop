@@ -11,9 +11,9 @@
         </div>
         <div class="header__top-item clock"><span>Круглосуточно</span></div>
       </div>
-      <a class="lk" href="#">
+      <router-link class="lk" to="/auth/login">
         <div>Войти</div>
-      </a>
+      </router-link>
     </div>
   </header>
 </template>

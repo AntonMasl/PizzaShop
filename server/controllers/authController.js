@@ -1,8 +1,8 @@
 const User = require('../models/User')
 const Role = require('../models/Role')
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs'); //хеширование пароля
 const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator')
+const { validationResult } = require('express-validator') //проверяем валидность введенных данных - функция будет возвращать ошибки в следствии валидации
 const {secret} = require("../config")
 
 const generateAccessToken = (id, roles) => {
@@ -10,25 +10,30 @@ const generateAccessToken = (id, roles) => {
         id,
         roles
     }
-    return jwt.sign(payload, secret, {expiresIn: "24h"} )
+    return jwt.sign(payload, secret, {expiresIn: "24h"} ) //return ТОКЕН ---- payload-данные которые хотим спрятать в токен и secret - ключ , по которому расшифровывается токен
 }
 
 class authController {
     async registration(req, res) {
         try {
-            const errors = validationResult(req)
+            const errors = validationResult(req) //<-эта функция будет возвращать ошибки в следствии валидации
             if (!errors.isEmpty()) {
                 return res.status(400).json({message: "Ошибка при регистрации", errors})
             }
-            const {username, password} = req.body;
-            const candidate = await User.findOne({username})
+            const {username,name, surname, email, password} = req.body;
+            const candidate = await User.findOne({username}) //ищем пользователя
             if (candidate) {
-                return res.status(400).json({message: "Пользователь с таким именем уже существует"})
+                return res.status(400).json({message: "Пользователь с таким логином уже существует"})
             }
-            const hashPassword = bcrypt.hashSync(password, 7);
-            const userRole = await Role.findOne({value: "USER"})
-            const user = new User({username, password: hashPassword, roles: [userRole.value]})
-            await user.save()
+            const hashPassword = bcrypt.hashSync(password, 7); //хеширование пароля, чтобы в базе данных не хранились пароли в открытом виде
+            const userRole = await Role.findOne({value: "USER"}) //получаем роль
+            const user = new User({
+                username,
+                name,surname,
+                email,
+                password: hashPassword,
+                roles: [userRole.value]}) //создаем пользователя
+            await user.save() //сохраняем пользователя
             return res.json({message: "Пользователь успешно зарегистрирован"})
         } catch (e) {
             console.log(e)
@@ -39,11 +44,15 @@ class authController {
     async login(req, res) {
         try {
             const {username, password} = req.body
+            console.log(req.body)
             const user = await User.findOne({username})
             if (!user) {
-                return res.status(400).json({message: `Пользователь ${username} не найден`})
+                return res.status(400).json({message: `Введен неверный логин`})
             }
-            const validPassword = bcrypt.compareSync(password, user.password)
+            console.log(password)
+            console.log(user.password)
+            const validPassword = bcrypt.compareSync(password, user.password) //функция сравнивает обычный пароль и захешированный
+            console.log(validPassword, typeof validPassword)
             if (!validPassword) {
                 return res.status(400).json({message: `Введен неверный пароль`})
             }

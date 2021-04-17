@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <div class="app-inner">
-      <router-view/>
-    </div>
+      <div class="app-inner">
+        <router-view/>
+      </div>
   </div>
 </template>
 
 <script>
 
 
-export default {
-
-}
+export default {}
 </script>
 
 <style lang="scss">
@@ -72,7 +70,6 @@ body {
     background-image: url("~@/assets/images/bg.jpg");
     background-size: 10%;
     background-repeat: repeat;
-    padding-bottom: 10000px;
   }
 }
 
