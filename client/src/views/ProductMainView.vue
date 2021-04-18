@@ -1,5 +1,7 @@
 <template>
   <div>
+    {{token}}
+    {{user}}
     <Header/>
     <Menu/>
     <button class="link_create">
@@ -20,7 +22,7 @@ export default {
   components: {ProductList, Loader, Menu, Header},
 
   computed: {
-    ...mapGetters(["categoryId"])
+    ...mapGetters(["categoryId","token","user"])
   },
 }
 </script>

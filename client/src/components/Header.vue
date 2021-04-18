@@ -11,14 +11,35 @@
         </div>
         <div class="header__top-item clock"><span>Круглосуточно</span></div>
       </div>
-      <router-link class="lk" to="/auth/login">
-        <div>Войти</div>
-      </router-link>
+      <div class="lk">
+        <div class="username">{{user.username}}</div>
+        <router-link v-if="!isAuth" class="btn-auth" to="/auth/login">
+          <div>Войти</div>
+        </router-link>
+        <button @click="logout" v-else class="btn-auth">
+          <div>Выйти</div>
+        </button>
+      </div>
     </div>
   </header>
 </template>
 <script>
-export default {}
+import {mapGetters, mapMutations} from "vuex";
+
+export default {
+  methods:{
+    logout(){
+      localStorage.removeItem("token")
+      this.updateUser({})
+      this.updateIsAuth(false)
+    },
+    ...mapMutations(["updateIsAuth","updateUser"])
+  },
+
+  computed: {
+    ...mapGetters(["isAuth","user"])
+  }
+}
 </script>
 
 <style scoped lang="scss">
@@ -37,7 +58,43 @@ export default {}
 .location:before {
   content: "\e900";
 }
+.lk{
+  display: flex;
+  align-items: center;
+  .username{
+    text-decoration: underline;
+    margin-right: 20px;
+    color: $v-orange;
+    font-weight: 700;
+    font-size: 24px;
+  }
+  .btn-auth {
+    width: 100px;
+    height: 67px;
+    color: black;
+    display: inline-block;
+    position: relative;
+    font-size: 18px;
+    background-color: #F3F3F3;
+    padding: 8px;
+    border-radius: 10px;
+    transition: 0.3s;
+    border: 1px solid $v_orange;
+    text-align: center;
 
+    &::before {
+      content: "\f2bd";
+      font-family: 'icomoon';
+      font-size: 25px;
+    }
+
+    &:hover {
+      background-color: $v_orange;
+      color: white;
+      box-shadow: 0 0 5px 5px $v_orange;
+    }
+  }
+}
 .phone {
   &:hover {
     color: $v_orange;
@@ -61,30 +118,6 @@ export default {}
   content: "\e94e";
 }
 
-.lk {
-  color: black;
-  display: inline-block;
-  position: relative;
-  font-size: 18px;
-  background-color: #F3F3F3;
-  padding: 8px;
-  border-radius: 10px;
-  transition: 0.3s;
-  border: 1px solid $v_orange;
-  text-align: center;
-
-  &::before {
-    content: "\f2bd";
-    font-family: 'icomoon';
-    font-size: 25px;
-  }
-
-  &:hover {
-    background-color: $v_orange;
-    color: white;
-    box-shadow: 0 0 5px 5px $v_orange;
-  }
-}
 
 //.location:before {
 //  content: "\e900";

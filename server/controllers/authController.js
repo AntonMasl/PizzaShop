@@ -2,7 +2,7 @@ const User = require('../models/User')
 const Role = require('../models/Role')
 const bcrypt = require('bcryptjs'); //хеширование пароля
 const jwt = require('jsonwebtoken');
-const { validationResult } = require('express-validator') //проверяем валидность введенных данных - функция будет возвращать ошибки в следствии валидации
+const {validationResult} = require('express-validator') //проверяем валидность введенных данных - функция будет возвращать ошибки в следствии валидации
 const {secret} = require("../config")
 
 const generateAccessToken = (id, roles) => {
@@ -10,7 +10,7 @@ const generateAccessToken = (id, roles) => {
         id,
         roles
     }
-    return jwt.sign(payload, secret, {expiresIn: "24h"} ) //return ТОКЕН ---- payload-данные которые хотим спрятать в токен и secret - ключ , по которому расшифровывается токен
+    return jwt.sign(payload, secret, {expiresIn: "1h"}) //return ТОКЕН ---- payload-данные которые хотим спрятать в токен и secret - ключ , по которому расшифровывается токен
 }
 
 class authController {
@@ -20,7 +20,7 @@ class authController {
             if (!errors.isEmpty()) {
                 return res.status(400).json({message: "Ошибка при регистрации", errors})
             }
-            const {username,name, surname, email, password} = req.body;
+            const {username, name, surname, email, password} = req.body;
             const candidate = await User.findOne({username}) //ищем пользователя
             if (candidate) {
                 return res.status(400).json({message: "Пользователь с таким логином уже существует"})
@@ -29,10 +29,11 @@ class authController {
             const userRole = await Role.findOne({value: "USER"}) //получаем роль
             const user = new User({
                 username,
-                name,surname,
+                name, surname,
                 email,
                 password: hashPassword,
-                roles: [userRole.value]}) //создаем пользователя
+                roles: [userRole.value]
+            }) //создаем пользователя
             await user.save() //сохраняем пользователя
             return res.json({message: "Пользователь успешно зарегистрирован"})
         } catch (e) {
@@ -57,7 +58,18 @@ class authController {
                 return res.status(400).json({message: `Введен неверный пароль`})
             }
             const token = generateAccessToken(user._id, user.roles)
-            return res.json({token})
+            return res.json({
+                token,
+                user: {
+                    id: user._id,
+                    roles: user.roles,
+                    username: user.username,
+                    name: user.name,
+                    surname: user.surname,
+                    email: user.email,
+                    password: user.password
+                }
+            })
         } catch (e) {
             console.log(e)
             res.status(400).json({message: 'Login error'})
@@ -72,6 +84,29 @@ class authController {
             console.log(e)
         }
     }
+
+    async auth(req, res) {
+        try {
+            const user = await User.findOne({_id: req.user.id})
+            const token = generateAccessToken(user._id, user.roles)
+            return res.json({
+                token,
+                user: {
+                    id: user._id,
+                    roles: user.roles,
+                    username: user.username,
+                    name: user.name,
+                    surname: user.surname,
+                    email: user.email,
+                    password: user.password
+                }
+            })
+        } catch (e) {
+            console.log(e)
+            res.send({message: "Server error"})
+        }
+    }
+
 }
 
 module.exports = new authController()

@@ -9,7 +9,16 @@
 <script>
 
 
-export default {}
+import {mapActions} from "vuex";
+
+export default {
+  mounted() {
+    this.auth()
+  },
+  methods:{
+    ...mapActions(["auth"])
+  }
+}
 </script>
 
 <style lang="scss">
