@@ -59,7 +59,7 @@ body {
   height: 100%;
   width: 100%;
   font-size: 100%;
-  line-height: 1;
+  line-height: 1 !important;
   font-size: 14px;
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
@@ -103,7 +103,7 @@ button::-moz-focus-inner {
 
 a,
 a:visited {
-  text-decoration: none;
+  text-decoration: none !important;
   color: black;
 }
 

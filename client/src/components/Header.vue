@@ -59,8 +59,6 @@ export default {
   content: "\e900";
 }
 .lk{
-  display: flex;
-  align-items: center;
   .username{
     text-decoration: underline;
     margin-right: 20px;
@@ -69,10 +67,12 @@ export default {
     font-size: 24px;
   }
   .btn-auth {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100px;
     height: 67px;
     color: black;
-    display: inline-block;
     position: relative;
     font-size: 18px;
     background-color: #F3F3F3;

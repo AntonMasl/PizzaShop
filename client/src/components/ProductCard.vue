@@ -1,6 +1,6 @@
 <template>
   <li class="card" :class="{'card-active': isActive}">
-    {{product.category}}
+
     <div class="card__inner">
       <div class="card_link-info"
            @click="showProductPage"
@@ -9,18 +9,31 @@
         <div class="card__img">
           <img :src="`http://localhost:3000/${product.imageSrc}`" alt="">
         </div>
-        <div class="card__name">{{ product.name }}</div>
+        <div class="card__name">{{ product ? product.name : '' }}</div>
       </div>
-      <div class="card__specification-pizza" v-if="product.category?product.category.name==='пиццы':''">
-        <div class="dough">
-          <div class="active">Тонкое</div>
-          <div>Традиционное</div>
-        </div>
-        <div class="diameter">
-          <div class="active">{{ product.diameter?product.diameter.small:'' }}</div>
-          <div>{{ product.diameter?product.diameter.middle:'' }}</div>
-          <div>{{ product.diameter?product.diameter.big:'' }}</div>
-        </div>
+      <div class="card__specification-pizza" v-if="product.category?product.category.name==='пицца':''">
+        <b-form-group>
+          <b-form-radio-group
+              id="btn-radios-"
+              v-model="selectedDough"
+              :options="typeDough"
+              button-variant="outline-primary"
+              size="lg"
+              name="radio-btn-outline"
+              buttons
+          ></b-form-radio-group>
+        </b-form-group>
+        <b-form-group>
+          <b-form-radio-group
+              id="btn-radios-"
+              v-model="selectedDiameter"
+              :options="diameters"
+              button-variant="outline-primary"
+              size="lg"
+              name="radio-btn-outline"
+              buttons
+          ></b-form-radio-group>
+        </b-form-group>
       </div>
       <div class="card__bottom">
         <div class="card__counter-product">
@@ -28,9 +41,18 @@
           <span>1</span>
           <button>+</button>
         </div>
-        <div class="card__sum">
-          <div class="card__price">{{ product.prices ? product.prices.small : product.price }} <span>руб</span></div>
-          <div class="card__weight">{{ product.weightOnSmallDough ? product.weightOnSmallDough.small : product.weight }} г</div>
+        <div class="card__sum" v-if="product.category?product.category.name === 'пицца':''">
+          <div class="card__price">{{ product.prices[selectedDiameter] }} <span>руб</span></div>
+          <div class="card__weight">
+            {{ selectedDough === "small" ? product.weightOnSmallDough[selectedDiameter] : product.weightOnTraditionalDough[selectedDiameter] }}
+            г
+          </div>
+        </div>
+        <div class="card__sum" v-else>
+          <div class="card__price">{{ product.price }} <span>руб</span></div>
+          <div class="card__weight">
+            {{ product.weight }} г
+          </div>
         </div>
       </div>
       <button class="card__btn-buy">+ в корзину</button>
@@ -44,9 +66,24 @@ export default {
   props: ['product'],
   data() {
     return {
-      isActive: false
+      isActive: false,
+      selectedDough: 'small',
+      typeDough: [
+        {text: 'тонкое', value: 'small'},
+        {text: 'традиционное', value: 'traditional'},
+      ],
+      selectedDiameter: 'small',
+      diameters: [
+        {text: this.product.diameter ? this.product.diameter.small : '', value: 'small'},
+        {text: this.product.diameter ? this.product.diameter.middle : '', value: 'middle'},
+        {text: this.product.diameter ? this.product.diameter.big : '', value: 'big'},
+      ]
     }
-
+  },
+  computed: {
+    showPrice() {
+      return
+    }
   },
   methods: {
 
@@ -58,7 +95,64 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.form-group {
+  margin-bottom: 0 !important;
+
+  &:first-child {
+    margin-bottom: 15px !important;
+  }
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled):active {
+  background-color: $v_orange !important;
+  border-color: $v_orange !important;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active:focus {
+  box-shadow: none !important;
+}
+
+.btn-group {
+  width: 90%;
+
+  label {
+    width: 50%;
+  }
+
+  .btn {
+    padding: 5px !important;
+  }
+}
+
+.btn-group-toggle {
+
+  .focus {
+    box-shadow: none !important
+  }
+
+  .btn-outline-primary {
+    font-size: 14px !important;
+
+    &:active {
+
+    }
+
+    color: black;
+    border-color: $v_orange;
+
+    &:hover {
+      background-color: $v_orange_hover;
+      border-color: $v_orange;
+    }
+  }
+
+  .active {
+    background-color: $v_orange !important;
+    border-color: $v_orange !important;
+  }
+}
+
 .card-active {
   box-shadow: 0 0 15px 8px $v_orange;
   border: 1px solid $v_orange !important;
@@ -72,7 +166,7 @@ export default {
   border: 1px solid black;
   background-color: white;
   text-align: center;
-  border-radius: 15px;
+  border-radius: 15px !important;
   overflow: hidden;
 
   &:hover {
@@ -126,7 +220,8 @@ export default {
     display: flex;
     justify-content: space-around;
   }
-  &__btn-buy{
+
+  &__btn-buy {
     background-color: #efefef;
   }
 

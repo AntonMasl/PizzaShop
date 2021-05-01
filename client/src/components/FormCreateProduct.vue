@@ -12,7 +12,7 @@
     </div>
     <div><input type="file" @change="fileChange"></div>
     <div v-if="selectedCategoryId">
-      <div v-if="selectedCategoryName==='пиццы'">
+      <div v-if="selectedCategoryName==='пицца'">
       <pre>
         diameter:
           small: <input type="number" disabled v-model.number="diameter.small">
@@ -120,7 +120,7 @@ export default {
       formData.append('name', this.name)
       formData.append('image', this.image)
       formData.append('category', this.selectedCategoryId)
-      if (this.selectedCategoryName === 'пиццы') {
+      if (this.selectedCategoryName === 'пицца') {
         formData.append('diameter', JSON.stringify(this.diameter))
         formData.append('weightOnTraditionalDough', JSON.stringify(this.weightOnTraditionalDough))
         formData.append('weightOnSmallDough', JSON.stringify(this.weightOnSmallDough))
