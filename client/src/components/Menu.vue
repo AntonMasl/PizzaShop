@@ -47,6 +47,7 @@ export default {
 }
 
 .menu {
+  border-radius: 10px;
   padding: 20px 50px;
   background: white;
   margin-bottom: 70px;

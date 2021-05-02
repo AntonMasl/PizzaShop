@@ -1,13 +1,18 @@
 <template>
   <div class="loader"></div>
 </template>
+<script>
+export default {
+
+}
+</script>
 <style>
 .loader {
   animation: spin 1s infinite linear;
   border: solid 2vmin transparent;
   border-radius: 50%;
-  border-right-color: #09f;
-  border-top-color: #09f;
+  border-right-color: rgba(255, 153, 0, 0.5);
+  border-top-color: rgba(255, 153, 0, 0.5);
   box-sizing: border-box;
   height: 20vmin;
   margin: 0 auto;
@@ -18,8 +23,8 @@
   animation: spin 2s infinite linear;
   border: solid 2vmin transparent;
   border-radius: 50%;
-  border-right-color: #3cf;
-  border-top-color: #3cf;
+  border-right-color: rgba(255, 153, 0, 0.5);
+  border-top-color: rgba(255, 153, 0, 0.5);
   box-sizing: border-box;
   content: "";
   height: 16vmin;
@@ -32,8 +37,8 @@
   animation: spin 3s infinite linear;
   border: solid 2vmin transparent;
   border-radius: 50%;
-  border-right-color: #6ff;
-  border-top-color: #6ff;
+  border-right-color: rgba(255, 153, 0, 0.5);
+  border-top-color: rgba(255, 153, 0, 0.5);
   box-sizing: border-box;
   content: "";
   height: 12vmin;

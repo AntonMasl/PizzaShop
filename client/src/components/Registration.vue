@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="createUser" class="form">
     <h1 class="form__title">Регистрация</h1>
-    <input class="form__input-login" type="text" placeholder="Логин" required v-model="username">
+    <input class="form__input-login" type="text" placeholder="Логин" required v-focus v-model="username">
     <input class="form__input-name" type="text" placeholder="Имя" required v-model="name">
     <input class="form__input-surname" type="text" placeholder="Фамилия" required v-model="surname">
     <input class="form__input-mail" type="email" placeholder="Адрес электронной почты" required v-model="email">

@@ -10,7 +10,7 @@
       <div class="product__right">
         <div class="product__name">{{ product.name }}</div>
         <div class="product__foodValue">
-          <div class="title">Пищевая ценость на 100 г</div>
+          <div class="title">Пищевая ценость на 100 г:</div>
           <ul>
             <li><span>Энерг. ценность</span><span>{{ product.foodValue.energyValue }} ккал</span></li>
             <li><span>Белки</span><span>{{ product.foodValue.proteins }} г</span></li>
@@ -19,50 +19,14 @@
           </ul>
         </div>
         <div class="product__description">
-          <div class="title">Описание</div>
+          <div class="title">Описание:</div>
           <div>{{ product.description }}</div>
         </div>
-        <div v-if="product.category.name==='pizza'">
-          <div class="product__dough-diameter">
-            <div class="title">Тесто</div>
-            <div class="buttons">
-              <button class="btn btn-active">Традиционное</button>
-              <button class="btn">Тонкое</button>
-            </div>
-          </div>
-          <div class="product__size">
-            <div class="title">Размер</div>
-            <div class="buttons-size">
-              <button class="small btn btn-active">
-                <span>{{ product.diameter.small }} см</span>
-                <span>{{ product.weightOnSmallDough.small }} г</span>
-                <span>{{ product.prices.small }} руб</span>
-              </button>
-              <button class="middle btn">
-                <span>{{ product.diameter.middle }} см</span>
-                <span>{{ product.weightOnSmallDough.middle }} г</span>
-                <span>{{ product.prices.middle }} руб</span>
-              </button>
-              <button class="big btn">
-                <span>{{ product.diameter.big }} см</span>
-                <span>{{ product.weightOnSmallDough.big }} г</span>
-                <span>{{ product.prices.big }} руб</span>
-              </button>
-            </div>
-          </div>
+        <div class="product__calculation">
+          <div class="title">Выбирите тип теста и размер пиццы:</div>
+          <CalculationPrice :product="product"/>
         </div>
-        <div class="product__bottom">
-          <div class="product__counter-product">
-            <button>-</button>
-            <span>1</span>
-            <button>+</button>
-          </div>
-          <div class="product__sum">
-            <div class="product__price">{{ product.prices?product.prices.small:product.price }} <span>руб</span></div>
-            <div class="product__weight">{{ product.weightOnSmallDough?product.weightOnSmallDough.small:product.weight }} г</div>
-          </div>
-        </div>
-        <button class="product__btn-buy">+ в корзину</button>
+        <!--        <button class="product__btn-buy">+ в корзину</button>-->
       </div>
     </div>
   </div>
@@ -70,13 +34,15 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import CalculationPrice from "@/components/CalculationPrice";
 
 export default {
+  components: {CalculationPrice},
   props: ['product']
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .title {
   font-weight: 700;
   margin-bottom: 20px;
@@ -84,10 +50,57 @@ export default {
 }
 
 .product {
-
-  &__btn-buy{
-    background-color: #efefef;
+  .specification-pizza{
+    border: 1px solid $v_orange;
+    border-radius: 10px;
   }
+  .btn-lg,
+  .btn-group-lg > .btn {
+    span{
+      font-size: 18px;
+      font-weight: 600;
+    }
+  }
+
+  .counter-product {
+    border: 1px solid $v-orange;
+
+    button {
+      height: 42px;
+      width: 42px;
+      font-weight: 700;
+      font-size: 24px;
+    }
+
+    span {
+      font-weight: 700;
+      font-size: 24px;
+      height: 42px;
+      width: 42px;
+    }
+  }
+
+  .price {
+    font-size: 26px;
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  .weight {
+    font-size: 18px;
+  }
+  .sum{
+    min-width: 120px;
+  }
+
+  .btn-buy {
+    border: 1px solid $v_orange;
+    border-radius: 10px;
+    height: 50px;
+  }
+
   &__inner {
     display: flex;
   }
@@ -104,7 +117,6 @@ export default {
   }
 
   &__img {
-    height: 100%;
     padding: 20px;
 
     img {
@@ -189,29 +201,29 @@ export default {
   }
 }
 
-.btn {
-  background-color: white;
-  letter-spacing: 1px;
-  border-radius: 10px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid black;
+//.btn {
+//  background-color: white;
+//  letter-spacing: 1px;
+//  border-radius: 10px;
+//  cursor: pointer;
+//  display: flex;
+//  justify-content: center;
+//  align-items: center;
+//  border: 1px solid black;
+//
+//  &:hover {
+//    background-color: #e5e5e9;
+//  }
+//}
 
-  &:hover {
-    background-color: #e5e5e9;
-  }
-}
-
-.btn-active {
-  background-color: $v_orange;
-  color: white;
-
-  &:hover {
-    background-color: $v_orange !important;
-  }
-}
+//.btn-active {
+//  background-color: $v_orange;
+//  color: white;
+//
+//  &:hover {
+//    background-color: $v_orange !important;
+//  }
+//}
 
 
 .small {
@@ -228,65 +240,6 @@ export default {
 
 .product {
 
-  &__bottom {
-    padding: 0 15px;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  &__counter-product {
-    border: 1px solid $v_orange;
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
-
-    button {
-      height: 40px;
-      width: 40px;
-      background: #F3F3F3;
-      font-weight: 700;
-      font-size: 30px;
-    }
-
-    span {
-      font-weight: 700;
-      font-size: 26px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 40px;
-      width: 40px;
-      background: #F3F3F3;
-    }
-  }
-
-  &__price {
-    font-size: 26px;
-    font-weight: 600;
-
-    span {
-      font-size: 22px;
-    }
-  }
-
-  &__weight {
-    font-size: 20px;
-  }
-
-  &__btn-buy {
-    border: 1px solid $v_orange;
-    border-radius: 10px;
-    width: 100%;
-    height: 60px;
-    font-size: 18px;
-    transition: 0.3s;
-
-    &:hover {
-      color: white;
-      background-color: $v_orange;
-    }
-  }
 }
 
 </style>

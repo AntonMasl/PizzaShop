@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-      <div class="app-inner">
-        <router-view/>
-      </div>
+    <div class="app-inner">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   mounted() {
     this.auth()
   },
-  methods:{
+  methods: {
     ...mapActions(["auth"])
   }
 }
@@ -66,7 +66,8 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-body{
+body {
+  height: 100%;
   overflow-y: scroll;
 }
 
@@ -99,8 +100,11 @@ a:hover {
   text-decoration: none;
 }
 
-ul li {
-  list-style: none;
+ul {
+  margin-bottom: 0;
+  li {
+    list-style: none;
+  }
 }
 
 img {
@@ -124,7 +128,7 @@ h6 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: black;
-  min-height: 100% ;
+  min-height: 100%;
   position: relative;
 
   &::before {

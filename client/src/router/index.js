@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import FormCreateProduct from "@/components/FormCreateProduct";
 import ProductsView from "@/views/ProductsView";
 import ProductView from "@/views/ProductView";
-import ProductMainView from "@/views/ProductMainView";
+import ProductsMainView from "@/views/ProductsMainView";
 import AuthView from "@/views/AuthView";
 import Login from "@/components/Login";
 import Registration from "@/components/Registration";
@@ -17,7 +17,7 @@ const routes = [
     },
     {
         path: '/products',
-        component: ProductMainView,
+        component: ProductsMainView,
         children: [
             {path: '', component: ProductsView},
             {path: ":id", component: ProductView}

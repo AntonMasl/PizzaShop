@@ -1,11 +1,26 @@
 <template>
   <form @submit.prevent="authorizationUser" class="form">
     <h1 class="form__title">Авторизация</h1>
-    <input class="form__input-login" type="text" placeholder="Логин" required v-model="username">
-    <input class="form__input-password" type="password" placeholder="Пароль" required v-model="password">
+    <input
+        class="form__input-login"
+        type="text"
+        placeholder="Логин"
+        required
+        v-model="username"
+        v-focus
+    >
+    <input
+        class="form__input-password"
+        type="password"
+        placeholder="Пароль"
+        required v-model="password"
+    >
     <div class="form__bottom">
       <div>
-        <button @click="errorMessage=''" class="form__btn">Войти</button>
+        <button
+            @click="errorMessage=''"
+            class="form__btn">Войти
+        </button>
         <router-link class="form__link-registration" to="/auth/registration">Регистрация</router-link>
       </div>
       <div v-if="errorMessage" class="form__message-error">{{ errorMessage }}!</div>
@@ -46,7 +61,7 @@ export default {
         }
       }
     },
-    ...mapMutations(["updateToken", "updateUser","updateIsAuth"])
+    ...mapMutations(["updateToken", "updateUser", "updateIsAuth"])
   },
   computed: {
     ...mapGetters(["token", "user"])

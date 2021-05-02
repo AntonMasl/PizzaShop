@@ -1,6 +1,5 @@
 <template>
   <li class="card" :class="{'card-active': isActive}">
-
     <div class="card__inner">
       <div class="card_link-info"
            @click="showProductPage"
@@ -11,82 +10,80 @@
         </div>
         <div class="card__name">{{ product ? product.name : '' }}</div>
       </div>
-      <div class="card__specification-pizza" v-if="product.category?product.category.name==='пицца':''">
-        <b-form-group>
-          <b-form-radio-group
-              id="btn-radios-"
-              v-model="selectedDough"
-              :options="typeDough"
-              button-variant="outline-primary"
-              size="lg"
-              name="radio-btn-outline"
-              buttons
-          ></b-form-radio-group>
-        </b-form-group>
-        <b-form-group>
-          <b-form-radio-group
-              id="btn-radios-"
-              v-model="selectedDiameter"
-              :options="diameters"
-              button-variant="outline-primary"
-              size="lg"
-              name="radio-btn-outline"
-              buttons
-          ></b-form-radio-group>
-        </b-form-group>
-      </div>
-      <div class="card__bottom">
-        <div class="card__counter-product">
-          <button>-</button>
-          <span>1</span>
-          <button>+</button>
-        </div>
-        <div class="card__sum" v-if="product.category?product.category.name === 'пицца':''">
-          <div class="card__price">{{ product.prices[selectedDiameter] }} <span>руб</span></div>
-          <div class="card__weight">
-            {{ selectedDough === "small" ? product.weightOnSmallDough[selectedDiameter] : product.weightOnTraditionalDough[selectedDiameter] }}
-            г
-          </div>
-        </div>
-        <div class="card__sum" v-else>
-          <div class="card__price">{{ product.price }} <span>руб</span></div>
-          <div class="card__weight">
-            {{ product.weight }} г
-          </div>
-        </div>
-      </div>
-      <button class="card__btn-buy">+ в корзину</button>
+      <CalculationPrice :product="product"/>
+<!--      <div class="card__specification-pizza" v-if="product.category?product.category.name==='пицца':''">-->
+<!--        <b-form-group>-->
+<!--          <b-form-radio-group-->
+<!--              id="btn-radios-"-->
+<!--              v-model="selectedDough"-->
+<!--              :options="typeDough"-->
+<!--              button-variant="outline-primary"-->
+<!--              size="lg"-->
+<!--              name="radio-btn-outline"-->
+<!--              buttons-->
+<!--          ></b-form-radio-group>-->
+<!--        </b-form-group>-->
+<!--        <b-form-group>-->
+<!--          <b-form-radio-group-->
+<!--              id="btn-radios-"-->
+<!--              v-model="selectedDiameter"-->
+<!--              :options="diameters"-->
+<!--              button-variant="outline-primary"-->
+<!--              size="lg"-->
+<!--              name="radio-btn-outline"-->
+<!--              buttons-->
+<!--          ></b-form-radio-group>-->
+<!--        </b-form-group>-->
+<!--      </div>-->
+<!--      <div class="card__bottom">-->
+<!--        <div class="card__counter-product">-->
+<!--          <button>-</button>-->
+<!--          <span>1</span>-->
+<!--          <button>+</button>-->
+<!--        </div>-->
+<!--        <div class="card__sum" v-if="product.category?product.category.name === 'пицца':''">-->
+<!--          <div class="card__price">{{ product.prices[selectedDiameter] }} <span>руб</span></div>-->
+<!--          <div class="card__weight">-->
+<!--            {{ selectedDough === "small" ? product.weightOnSmallDough[selectedDiameter] : product.weightOnTraditionalDough[selectedDiameter] }}-->
+<!--            г-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="card__sum" v-else>-->
+<!--          <div class="card__price">{{ product.price }} <span>руб</span></div>-->
+<!--          <div class="card__weight">-->
+<!--            {{ product.weight }} г-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <button class="card__btn-buy">+ в корзину</button>-->
     </div>
   </li>
 </template>
 
 <script>
 
+import CalculationPrice from "@/components/CalculationPrice";
 export default {
+  components: {CalculationPrice},
   props: ['product'],
   data() {
     return {
       isActive: false,
-      selectedDough: 'small',
-      typeDough: [
-        {text: 'тонкое', value: 'small'},
-        {text: 'традиционное', value: 'traditional'},
-      ],
-      selectedDiameter: 'small',
-      diameters: [
-        {text: this.product.diameter ? this.product.diameter.small : '', value: 'small'},
-        {text: this.product.diameter ? this.product.diameter.middle : '', value: 'middle'},
-        {text: this.product.diameter ? this.product.diameter.big : '', value: 'big'},
-      ]
-    }
+    //   selectedDough: 'small',
+    //   typeDough: [
+    //     {text: 'тонкое', value: 'small'},
+    //     {text: 'традиционное', value: 'traditional'},
+    //   ],
+    //   selectedDiameter: 'small',
+    //   diameters: [
+    //     {text: this.product.diameter ? this.product.diameter.small : '', value: 'small'},
+    //     {text: this.product.diameter ? this.product.diameter.middle : '', value: 'middle'},
+    //     {text: this.product.diameter ? this.product.diameter.big : '', value: 'big'},
+    //   ]
+     }
   },
-  computed: {
-    showPrice() {
-      return
-    }
-  },
-  methods: {
 
+  methods: {
     showProductPage() {
       this.$router.push({path: `/products/${this.product._id}`})
     },
@@ -202,52 +199,9 @@ export default {
     margin-bottom: 22px;
   }
 
-  &__specification-pizza {
-    background: #F3F3F3;
-    border-radius: 10px;
-    padding: 7px 5.7px;
-    margin-bottom: 20px;
-
-    .active {
-      background-color: white;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
-      border-radius: 5px;
-    }
-  }
-
-  &__bottom {
-    padding: 0 15px;
-    display: flex;
-    justify-content: space-around;
-  }
 
   &__btn-buy {
     background-color: #efefef;
-  }
-
-  &__counter-product {
-    display: flex;
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 20px;
-
-    button {
-      height: 32px;
-      width: 32px;
-      background: #F3F3F3;
-      font-weight: 400;
-      font-size: 20px;
-    }
-
-    span {
-      font-size: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 32px;
-      width: 32px;
-      background: #F3F3F3;
-    }
   }
 
   &__price {
@@ -269,35 +223,6 @@ export default {
       color: white;
       background-color: $v_orange;
     }
-  }
-}
-
-.dough {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 7px;
-
-  div {
-    width: 132px;
-    font-size: 14px;
-    line-height: 17px;
-    font-weight: 700;
-    padding: 8px 0;
-    cursor: pointer;
-  }
-}
-
-.diameter {
-  display: flex;
-  justify-content: space-between;
-
-  div {
-    width: 86px;
-    font-size: 14px;
-    line-height: 17px;
-    font-weight: 700;
-    padding: 8px 0;
-    cursor: pointer;
   }
 }
 </style>

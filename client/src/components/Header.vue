@@ -59,6 +59,8 @@ export default {
   content: "\e900";
 }
 .lk{
+  display: flex;
+  align-items: center;
   .username{
     text-decoration: underline;
     margin-right: 20px;
@@ -70,6 +72,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     width: 100px;
     height: 67px;
     color: black;
