@@ -4,7 +4,9 @@ export default {
     state: {
         products: [],
         product: {},
-        loading: true
+        loading: true,
+        valueSearch: '',
+        selectedSortType: ''
     },
 
     actions: {
@@ -46,6 +48,12 @@ export default {
         updateProductItem(state, product) {
             state.product = product
         },
+        searchProducts(state, value) {
+            state.valueSearch = value
+        },
+        sortProducts(state, selectedSortType) {
+            state.selectedSortType = selectedSortType
+        }
 
         // async showPizzaItemView(state, pizzaId) {
         //     state.pizzaId = pizzaId
@@ -64,5 +72,16 @@ export default {
         productItem(state) {
             return state.product
         },
+        visibleProducts(state) {
+            if (state.valueSearch) {
+                return state.products.filter(item => item.name.toLowerCase().includes(state.valueSearch.toLowerCase()))
+            } else {
+                return state.products
+            }
+        },
+        sortAllProducts(state){
+            console.log(this.state.selectedSortType)
+        }
+
     }
 }

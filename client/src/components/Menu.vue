@@ -50,7 +50,7 @@ export default {
   border-radius: 10px;
   padding: 20px 50px;
   background: white;
-  margin-bottom: 70px;
+  margin-bottom: 40px;
   border: 1px solid black;
   display: flex;
   justify-content: space-between;

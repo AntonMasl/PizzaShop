@@ -55,10 +55,7 @@ export default {}
   box-shadow: 0 0 25px 10px $v_orange;
   background-color: #ffffff;
   border-radius: 15px;
-  padding-top: 33px;
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 23px;
+  padding: 33px 24px 23px;
   display: flex;
   flex-direction: column;
 
