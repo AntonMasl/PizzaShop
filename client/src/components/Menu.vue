@@ -7,10 +7,10 @@
           :category="category"
       />
     </ul>
-    <a class="basket" href="#">
+    <router-link class="basket" to="/basket">
       <span class="summa">10000000р</span>
       <span class="count">11</span>
-    </a>
+    </router-link>
   </nav>
 </template>
 

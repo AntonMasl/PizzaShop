@@ -7,6 +7,7 @@ import ProductsMainView from "@/views/ProductsMainView";
 import AuthView from "@/views/AuthView";
 import Login from "@/components/Login";
 import Registration from "@/components/Registration";
+import BasketView from "@/views/BasketView";
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,10 @@ const routes = [
             {path: 'login', component: Login},
             {path: "registration", component: Registration}
         ]
+    },
+    {
+        path: '/basket',
+        component: BasketView,
     },
 
     // {
