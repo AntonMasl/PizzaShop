@@ -43,22 +43,26 @@ class BasketController {
             const findBasket = await Basket.findOne({user: userId})
             if(findBasket){
                 //const productInBasketIndex = findBasket.products.findIndex(item => JSON.stringify(item) == JSON.stringify({...copyProduct}))
+                let newCount = 0;
                 const productInBasketIndex = findBasket.products.findIndex(item=>{
+                    newCount = item.count + product.count
                     let copyItem = {...item}
+                    let copyProduct = {...product}
                     delete copyItem.count
-                    return JSON.stringify(copyItem) == JSON.stringify(product)
+                    delete copyProduct.count
+                    return JSON.stringify(copyItem) == JSON.stringify(copyProduct)
                 })
                 console.log(productInBasketIndex)
                 if(productInBasketIndex !== -1){
                     console.log(222222)
                     let a = await Basket.updateOne({"user": userId}, {
-                        "$inc": {
-                            [`products.${productInBasketIndex}.count`]: 1
+                        "$set": {
+                            [`products.${productInBasketIndex}.count`]: newCount
                         }
                     })
                     return res.json(a)
                 }
-                findBasket.products.push({...product, count: 1})
+                findBasket.products.push(product)
                 await findBasket.save()
                 return res.json(findBasket)
             }
@@ -66,7 +70,7 @@ class BasketController {
             const basket = new Basket({
                 user: userId
             })
-            basket.products.push({...product, count: 1})
+            basket.products.push(product)
             await basket.save()
             return res.json(basket)
         } catch (error) {
@@ -75,15 +79,16 @@ class BasketController {
         }
     }
 
-    // async getOneBasket(req, res) {
-    //     try {
-    //         const {userId} = req.body
-    //         const basket = await Basket.find({user: userId}).populate('user')
-    //         return res.json(basket)
-    //     } catch (error) {
-    //         return res.json({"message": "Error"})
-    //     }
-    // }
+    async getBasketUser(req, res) {
+        try {
+            const {userId} = req.params
+            console.log(req.params)
+            const basket = await Basket.findOne({user: userId}).populate('user')
+            return res.json(basket)
+        } catch (error) {
+            return res.json({"message": "Error"})
+        }
+    }
 }
 
 

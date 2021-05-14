@@ -1,7 +1,5 @@
 <template>
   <div class="calculation-price">
-    {{ selectedDough }}
-    {{ selectedDiameter }}
     <div class="specification-pizza" v-if="product.category?product.category.name==='пицца':''">
       <b-form-group>
         <b-form-radio-group
@@ -33,27 +31,22 @@
         <button @click="countProduct++">+</button>
       </div>
       <div class="sum" v-if="product.category?product.category.name === 'пицца':''">
-        <div class="price">{{ countProduct * product.prices[selectedDiameter] }} <span>руб</span></div>
-        <div class="weight">
-          {{
-            selectedDough === "small" ? countProduct * product.weightOnSmallDough[selectedDiameter] : countProduct * product.weightOnTraditionalDough[selectedDiameter]
-          }}
-          г
-        </div>
+        <div class="price">{{ price }} <span>руб</span></div>
+        <div class="weight">{{ weight }} г</div>
       </div>
       <div class="sum" v-else>
-        <div class="price">{{ product.price }} <span>руб</span></div>
+        <div class="price">{{ countProduct * product.price }} <span>руб</span></div>
         <div class="weight">
-          {{ product.weight }} г
+          {{ countProduct * product.weight }} г
         </div>
       </div>
     </div>
-    <button @click="addToBasket" class="btn-buy">+ в корзину</button>
+    <button @click="addProductInBasket" class="btn-buy">+ в корзину</button>
   </div>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   props: ['product'],
@@ -74,12 +67,39 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["isAuth"])
+    ...mapGetters(["isAuth", "user"]),
+    price() {
+      return this.countProduct * this.product.prices[this.selectedDiameter]
+    },
+    weight() {
+      return this.selectedDough === "small" ? this.countProduct * this.product.weightOnSmallDough[this.selectedDiameter] : this.countProduct * this.product.weightOnTraditionalDough[this.selectedDiameter]
+    }
   },
   methods: {
-    addToBasket() {
+    ...mapActions(["addToBasket"]),
+    addProductInBasket() {
       if (this.isAuth) {
-        console.log(this.product)
+        const product = {
+          ...this.product
+        }
+        if (product.category.name === "пицца") {
+          const typeDough = this.typeDough.find(item => item.value === this.selectedDough)
+          delete product.weightOnSmallDough
+          delete product.weightOnTraditionalDough
+          delete product.prices
+          delete product.foodValue
+          product.diameter = this.product.diameter[this.selectedDiameter]
+          product.typeDough = typeDough
+          product.priceOneProduct = this.product.prices[this.selectedDiameter]
+          product.weightOneProduct = this.weight / this.countProduct
+        }
+        product.count = this.countProduct
+        console.log(product)
+        const data = {
+          userId: this.user.id,
+          product
+        }
+        this.addToBasket(data)
       } else {
         this.$router.push({path: '/auth/login'})
       }
