@@ -4,7 +4,7 @@ const basketController = require('../controllers/basketController')
 
 //
 // router.get("/", basketController.getAllProducts)
-// router.post("/", basketController.addProduct)
+router.post("/", basketController.addProduct)
 // router.delete("/", basketController.deleteProduct)
 // router.get('/:id',productController.getOne)
 // router.get("/pizza", productController.getAllPizza)

@@ -3,7 +3,6 @@
     1){{ token }}
     2){{ user }}
     3){{ isAuth }}
-    4) {{products}}
     <Header/>
     <Menu/>
     <button v-if="user.roles?user.roles.includes('ADMIN'):false" class="link_create">

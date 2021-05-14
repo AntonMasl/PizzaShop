@@ -52,6 +52,7 @@ export default {
             state.valueSearch = value
         },
         sortProducts(state, selectedSortType) {
+            console.log(selectedSortType)
             state.selectedSortType = selectedSortType
         }
 

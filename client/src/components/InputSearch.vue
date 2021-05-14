@@ -14,17 +14,17 @@
 import {mapMutations} from "vuex";
 
 export default {
-  data(){
-    return{
+  data() {
+    return {
       value: ''
     }
   },
   methods: {
     ...mapMutations(['searchProducts']),
-    onSearch(){
+    onSearch() {
       this.searchProducts(this.value)
     },
-    clearValue(){
+    clearValue() {
       this.value = ''
       this.searchProducts(this.value)
     }
@@ -70,7 +70,8 @@ export default {
     position: absolute;
     right: -2px;
     top: 0;
-    &:hover{
+
+    &:hover {
       background-color: $v-orange;
     }
   }
