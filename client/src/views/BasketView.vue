@@ -1,16 +1,71 @@
 <template>
   <div>
+
     <Header/>
-    <BasketList/>
+    <div class="title">КОРЗИНА</div>
+    <BasketList :basket="basket"/>
+    <div class="total-summa">
+      <div>Сумма заказа:</div>
+      <span>{{totalSumma}} руб</span>
+    </div>
   </div>
 </template>
 <script>
 import Header from "@/components/Header";
 import BasketList from "@/components/BasketList";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
-  components: {BasketList, Header}
+  components: {BasketList, Header},
+
+  async mounted() {
+    await this.getBasketUser(this.user.id)
+    console.log(this.basket)
+  },
+
+  computed: {
+    ...mapGetters(["user", "basket", "isAuth","totalSumma"])
+  },
+  methods: {
+    ...mapActions(["getBasketUser"])
+  },
+
+  watch: {
+    isAuth() {
+      if (!this.isAuth) {
+        this.$router.push({path: '/products'})
+      }
+    },
+    user() {
+      this.getBasketUser(this.user.id)
+    }
+  }
 }
 </script>
-<style>
+<style scoped lang="scss">
+.title {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 40px;
+  margin-top: 60px;
+}
 
+.total-summa {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 24px;
+
+  div {
+    margin-right: 20px;
+    color: #ff9900;
+    font-weight: 900;
+  }
+;
+
+  span {
+    font-size: 28px;
+    font-weight: 700;
+  }
+}
 </style>

@@ -41,10 +41,10 @@ class BasketController {
             //
             console.log(product)
             const findBasket = await Basket.findOne({user: userId})
-            if(findBasket){
+            if (findBasket) {
                 //const productInBasketIndex = findBasket.products.findIndex(item => JSON.stringify(item) == JSON.stringify({...copyProduct}))
                 let newCount = 0;
-                const productInBasketIndex = findBasket.products.findIndex(item=>{
+                const productInBasketIndex = findBasket.products.findIndex(item => {
                     newCount = item.count + product.count
                     let copyItem = {...item}
                     let copyProduct = {...product}
@@ -53,14 +53,14 @@ class BasketController {
                     return JSON.stringify(copyItem) == JSON.stringify(copyProduct)
                 })
                 console.log(productInBasketIndex)
-                if(productInBasketIndex !== -1){
+                if (productInBasketIndex !== -1) {
                     console.log(222222)
-                    let a = await Basket.updateOne({"user": userId}, {
+                    await Basket.updateOne({"user": userId}, {
                         "$set": {
                             [`products.${productInBasketIndex}.count`]: newCount
                         }
                     })
-                    return res.json(a)
+                    return res.json(findBasket)
                 }
                 findBasket.products.push(product)
                 await findBasket.save()
@@ -88,6 +88,24 @@ class BasketController {
         } catch (error) {
             return res.json({"message": "Error"})
         }
+    }
+
+    async deleteProductInBasket(req, res) {
+        try {
+            const {product, userId} = req.body
+            console.log(req.body)
+            // return res.json(product)
+            const basket = await Basket.findOne({user: userId})
+            const newProducts = basket.products.filter(item => {
+                return JSON.stringify(item) != JSON.stringify(product)
+            })
+            basket.products = newProducts
+            await basket.save()
+            return res.json(basket.products)
+        } catch (e) {
+            return res.json({"message": "Error"})
+        }
+
     }
 }
 

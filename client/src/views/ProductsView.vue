@@ -20,6 +20,7 @@ import SortPrice from "@/components/SortPrice";
 export default {
   components: {SortPrice, InputSearchProduct, ProductList, Loader, Menu},
   async mounted() {
+    console.log(999,this.categoryId)
     await this.getProducts(this.categoryId)
   },
   watch: {

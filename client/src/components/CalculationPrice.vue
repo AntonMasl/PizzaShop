@@ -90,8 +90,8 @@ export default {
           delete product.foodValue
           product.diameter = this.product.diameter[this.selectedDiameter]
           product.typeDough = typeDough
-          product.priceOneProduct = this.product.prices[this.selectedDiameter]
-          product.weightOneProduct = this.weight / this.countProduct
+          product.price = this.product.prices[this.selectedDiameter]
+          product.weight = this.weight / this.countProduct
         }
         product.count = this.countProduct
         console.log(product)

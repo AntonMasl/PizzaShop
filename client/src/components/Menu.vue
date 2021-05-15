@@ -7,9 +7,12 @@
           :category="category"
       />
     </ul>
-    <router-link class="basket" to="/basket">
-      <span class="summa">10000000р</span>
-      <span class="count">11</span>
+    <router-link v-if="isAuth" class="basket" to="/basket">
+      <span class="summa">{{totalSumma}} р</span>
+      <span class="count">0</span>
+    </router-link>
+    <router-link v-else class="basket" to="/auth/login">
+      <span class="count">0</span>
     </router-link>
   </nav>
 </template>
@@ -28,7 +31,7 @@ export default {
     ...mapActions(["getCategories"])
   },
   computed:{
-    ...mapGetters(["allCategories"])
+    ...mapGetters(["allCategories","isAuth","totalSumma"])
   }
 }
 </script>
@@ -108,6 +111,8 @@ export default {
 
 
   .summa {
+    width: 100px;
+    text-align: end;
     position: absolute;
     left: -6px;
     top: 50%;
