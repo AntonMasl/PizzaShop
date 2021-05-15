@@ -1,6 +1,5 @@
 <template>
   <li class="basket-card">
-    {{ user }}
     <div class="inner">
       <div class="left">
         <div class="image">
@@ -101,9 +100,15 @@ span {
   align-items: center;
 
   div {
-    margin-right: 40px;
-    margin-left: 40px;
+    //margin-right: 40px;
+    //margin-left: 40px;
+    width: 148px;
+    display: flex;
+    justify-content: center;
     font-size: 20px;
+    &:nth-child(2){
+      width: 100px;
+    }
   }
 }
 

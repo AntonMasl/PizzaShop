@@ -1,8 +1,8 @@
 <template>
   <div>
-    1){{ token }}
-    2){{ user }}
-    3){{ isAuth }}
+<!--    1){{ token }}-->
+<!--    2){{ user }}-->
+<!--    3){{ isAuth }}-->
     <Header/>
     <Menu/>
     <button v-if="user.roles?user.roles.includes('ADMIN'):false" class="link_create">

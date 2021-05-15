@@ -1,12 +1,14 @@
 <template>
   <div>
-
     <Header/>
+    <ButtonBack/>
     <div class="title">КОРЗИНА</div>
-    <BasketList :basket="basket"/>
-    <div class="total-summa">
-      <div>Сумма заказа:</div>
-      <span>{{totalSumma}} руб</span>
+    <div v-if="basket.length">
+      <BasketList :basket="basket"/>
+      <div class="total-summa">
+        <div>Сумма заказа:</div>
+        <span>{{ totalSumma }} руб</span>
+      </div>
     </div>
   </div>
 </template>
@@ -14,9 +16,10 @@
 import Header from "@/components/Header";
 import BasketList from "@/components/BasketList";
 import {mapActions, mapGetters} from "vuex";
+import ButtonBack from "@/components/ButtonBack";
 
 export default {
-  components: {BasketList, Header},
+  components: {ButtonBack, BasketList, Header},
 
   async mounted() {
     await this.getBasketUser(this.user.id)
@@ -24,7 +27,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["user", "basket", "isAuth","totalSumma"])
+    ...mapGetters(["user", "basket", "isAuth", "totalSumma"])
   },
   methods: {
     ...mapActions(["getBasketUser"])
@@ -43,6 +46,9 @@ export default {
 }
 </script>
 <style scoped lang="scss">
+.btn-back{
+  width: 160px;
+}
 .title {
   text-align: center;
   font-size: 30px;

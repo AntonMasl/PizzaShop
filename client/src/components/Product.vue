@@ -2,7 +2,7 @@
   <div class="product">
     <div class="product__inner">
       <div class="product__left">
-        <button class="product__btn-back" @click="$router.go(-1)">< Назад</button>
+        <ButtonBack/>
         <div class="product__img">
           <img :src="`http://localhost:3000/${product.imageSrc}`" alt="">
         </div>
@@ -35,9 +35,10 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import CalculationPrice from "@/components/CalculationPrice";
+import ButtonBack from "@/components/ButtonBack";
 
 export default {
-  components: {CalculationPrice},
+  components: {ButtonBack, CalculationPrice},
   props: ['product']
 }
 </script>
@@ -109,12 +110,12 @@ export default {
     width: 50%;
   }
 
-  &__btn-back {
-    width: 80px;
-    height: 30px;
-    font-weight: 700;
-    border: 1px solid black;
-  }
+  //&__btn-back {
+  //  width: 80px;
+  //  height: 30px;
+  //  font-weight: 700;
+  //  border: 1px solid black;
+  //}
 
   &__img {
     padding: 20px;

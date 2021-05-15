@@ -1,9 +1,9 @@
 <template>
   <header class="header">
     <div class="header__inner">
-      <a href="#">
+      <router-link to="/products">
         <img class="logo" src="@/assets/images/logo-pizza.png" alt="">
-      </a>
+      </router-link>
       <div class="header__top-items">
         <div class="header__top-item location">Тула</div>
         <div class="header__top-item phone">

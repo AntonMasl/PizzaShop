@@ -12,7 +12,10 @@
 </template>
 
 <script>
-export default {}
+import ButtonBack from "@/components/ButtonBack";
+export default {
+  components: {ButtonBack}
+}
 </script>
 
 <style lang="scss">

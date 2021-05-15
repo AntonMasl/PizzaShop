@@ -9,10 +9,10 @@
     </ul>
     <router-link v-if="isAuth" class="basket" to="/basket">
       <span class="summa">{{totalSumma}} р</span>
-      <span class="count">0</span>
+<!--      <span class="count">0</span>-->
     </router-link>
     <router-link v-else class="basket" to="/auth/login">
-      <span class="count">0</span>
+<!--      <span class="count">0</span>-->
     </router-link>
   </nav>
 </template>
@@ -103,6 +103,7 @@ export default {
   color: black;
 
   &:hover {
+    color: $v-orange;
     .count {
       background-color: #02a72c;
       box-shadow: 0 0 8px 5px #02a72c;
@@ -111,6 +112,8 @@ export default {
 
 
   .summa {
+    font-size: 20px;
+    font-weight: 700;
     width: 100px;
     text-align: end;
     position: absolute;
