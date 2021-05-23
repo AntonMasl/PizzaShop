@@ -1,5 +1,4 @@
 const {Schema, model} = require('mongoose')
-
 const Basket = new Schema({
     user: {
         type: Schema.Types.ObjectId,
@@ -8,5 +7,4 @@ const Basket = new Schema({
     },
     products: []
 })
-
 module.exports = model('Basket', Basket)

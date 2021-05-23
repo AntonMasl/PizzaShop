@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import ButtonBack from "@/components/ButtonBack";
+import ButtonBack from "@/components/ButtonBackMain";
 export default {
   components: {ButtonBack}
 }
@@ -113,6 +113,11 @@ export default {
   }
 
   &__input-mail {
+    @extend %inputstyle;
+    margin-bottom: 15px;
+  }
+
+  &__input-tel {
     @extend %inputstyle;
     margin-bottom: 15px;
   }

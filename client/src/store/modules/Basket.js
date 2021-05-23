@@ -51,6 +51,12 @@ export default {
                     return
                 }
                 context.commit('updateBasket', res.data.products)
+                let sum = 0
+                context.getters.basket.forEach((item) => {
+                    sum += item.price * item.count
+                })
+                console.log(333,sum)
+                context.commit('updateTotalSumma', sum)
                 console.log(context.getters.basket)
             } catch (error) {
                 console.log(2222222)

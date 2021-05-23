@@ -16,15 +16,15 @@
 import Header from "@/components/Header";
 import BasketList from "@/components/BasketList";
 import {mapActions, mapGetters} from "vuex";
-import ButtonBack from "@/components/ButtonBack";
+import ButtonBack from "@/components/ButtonBackMain";
 
 export default {
   components: {ButtonBack, BasketList, Header},
 
-  async mounted() {
-    await this.getBasketUser(this.user.id)
-    console.log(this.basket)
-  },
+  // async mounted() {
+  //   await this.getBasketUser(this.user.id)
+  //   console.log(this.basket)
+  // },
 
   computed: {
     ...mapGetters(["user", "basket", "isAuth", "totalSumma"])

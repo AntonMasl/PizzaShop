@@ -8,6 +8,8 @@ import AuthView from "@/views/AuthView";
 import Login from "@/components/Login";
 import Registration from "@/components/Registration";
 import BasketView from "@/views/BasketView";
+import AdminPanel from "@/views/AdminPanel";
+import Orders from "@/components/Orders";
 
 Vue.use(VueRouter)
 
@@ -36,6 +38,15 @@ const routes = [
     {
         path: '/basket',
         component: BasketView,
+    },
+    {
+        path: '/admin-panel',
+        component: AdminPanel,
+        redirect: '/admin-panel/create-product',
+        children: [
+            {path: 'create-product', component: FormCreateProduct},
+            {path: 'orders', component: Orders}
+        ]
     },
 
     // {

@@ -9,10 +9,8 @@
     </ul>
     <router-link v-if="isAuth" class="basket" to="/basket">
       <span class="summa">{{totalSumma}} р</span>
-<!--      <span class="count">0</span>-->
     </router-link>
     <router-link v-else class="basket" to="/auth/login">
-<!--      <span class="count">0</span>-->
     </router-link>
   </nav>
 </template>

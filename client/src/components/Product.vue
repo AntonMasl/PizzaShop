@@ -2,7 +2,7 @@
   <div class="product">
     <div class="product__inner">
       <div class="product__left">
-        <ButtonBack/>
+        <ButtonBackMain/>
         <div class="product__img">
           <img :src="`http://localhost:3000/${product.imageSrc}`" alt="">
         </div>
@@ -35,10 +35,10 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import CalculationPrice from "@/components/CalculationPrice";
-import ButtonBack from "@/components/ButtonBack";
+import ButtonBackMain from "@/components/ButtonBackMain";
 
 export default {
-  components: {ButtonBack, CalculationPrice},
+  components: {ButtonBackMain, CalculationPrice},
   props: ['product']
 }
 </script>

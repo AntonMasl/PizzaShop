@@ -14,7 +14,12 @@
       </div>
       <div class="right">
         <div class="data">{{ item.price }} руб</div>
-        <div class="data">{{ item.count }}</div>
+<!--        <div class="data">{{ item.count }}</div>-->
+        <div class="data counter-product ">
+          <button @click="item.count!=1?item.count--:''">-</button>
+          <span>{{ item.count }}</span>
+          <button @click="item.count++">+</button>
+        </div>
         <div class="data">{{ item.price * item.count }} руб</div>
         <div class="delete" @click="deleteProductBasket">Удалить</div>
       </div>
@@ -43,6 +48,34 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.counter-product {
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+
+  button {
+    height: 32px;
+    width: 32px;
+    background: #F3F3F3;
+    font-weight: 400;
+    font-size: 20px;
+
+    &:hover {
+      background: $v_orange;
+      color: white;
+    }
+  }
+
+  span {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    background: #F3F3F3;
+  }
+}
 .basket-card {
   font-size: 16px;
   border: 1px solid black;

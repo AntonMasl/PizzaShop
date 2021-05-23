@@ -7,6 +7,7 @@ const User = new Schema({
     surname: {type: String, required: true},
     password: {type: String, required: true},
     email: {type: String, required: true},
+    telephone: {type: String, required: true},
     roles: [{type: String, ref: 'Role'}]
 })
 

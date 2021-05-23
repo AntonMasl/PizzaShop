@@ -20,7 +20,7 @@ class authController {
             if (!errors.isEmpty()) {
                 return res.status(400).json({message: "Ошибка при регистрации", errors})
             }
-            const {username, name, surname, email, password} = req.body;
+            const {username, name, surname, email, telephone, password} = req.body;
             const candidate = await User.findOne({username}) //ищем пользователя
             if (candidate) {
                 return res.status(400).json({message: "Пользователь с таким логином уже существует"})
@@ -29,8 +29,10 @@ class authController {
             const userRole = await Role.findOne({value: "USER"}) //получаем роль
             const user = new User({
                 username,
-                name, surname,
+                name,
+                surname,
                 email,
+                telephone,
                 password: hashPassword,
                 roles: [userRole.value]
             }) //создаем пользователя
@@ -67,6 +69,7 @@ class authController {
                     name: user.name,
                     surname: user.surname,
                     email: user.email,
+                    telephone: user.telephone,
                     password: user.password
                 }
             })
@@ -98,6 +101,7 @@ class authController {
                     name: user.name,
                     surname: user.surname,
                     email: user.email,
+                    telephone: user.telephone,
                     password: user.password
                 }
             })

@@ -1,5 +1,4 @@
 const {Schema, model} = require('mongoose')
-
 const Product = new Schema({
     name: {type: String, unique: true, required: true},
     category: {
@@ -7,57 +6,27 @@ const Product = new Schema({
         ref: 'Category',
         required: true
     },
-    imageSrc: {
-        type: String,
-    },
+    imageSrc: {type: String,},
     diameter: {
-        small: {
-            type: Number,
-        },
-        middle: {
-            type: Number,
-        },
-        big: {
-            type: Number,
-        }
+        small: {type: Number},
+        middle: {type: Number},
+        big: {type: Number}
     },
     weightOnTraditionalDough: {
-        //type: [Number],
-        small: {
-            type: Number,
-
-        },
-        middle: {
-            type: Number,
-
-        },
-        big: {
-            type: Number,
-
-        }
+        small: {type: Number},
+        middle: {type: Number},
+        big: {type: Number}
     },
     weightOnSmallDough: {
-        small: {
-            type: Number,
-        },
-        middle: {
-            type: Number,
-        },
-        big: {
-            type: Number,
-        }
+        small: {type: Number},
+        middle: {type: Number},
+        big: {type: Number}
     },
     weight: {type: Number},
     prices: {
-        small: {
-            type: Number,
-        },
-        middle: {
-            type: Number,
-        },
-        big: {
-            type: Number,
-        }
+        small: {type: Number},
+        middle: {type: Number},
+        big: {type: Number}
     },
     price: {type: Number},
     foodValue: {
@@ -68,5 +37,4 @@ const Product = new Schema({
     },
     description: {type: String}
 })
-
 module.exports = model('Product', Product)

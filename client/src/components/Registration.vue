@@ -5,6 +5,7 @@
     <input class="form__input-name" type="text" placeholder="Имя" required v-model="name">
     <input class="form__input-surname" type="text" placeholder="Фамилия" required v-model="surname">
     <input class="form__input-mail" type="email" placeholder="Адрес электронной почты" required v-model="email">
+    <input class="form__input-tel" type="text" placeholder="Телефон" required v-model="telephone">
     <input class="form__input-password" type="password" placeholder="Пароль" required v-model="password">
     <div class="form__bottom">
       <button @click="errorMessage=''" class="form__btn form__btn-registration">Зарегистрироваться</button>
@@ -24,6 +25,7 @@ export default {
       surname: '',
       password: '',
       email: '',
+      telephone: '',
       errorMessage: ''
     }
   },
@@ -35,7 +37,8 @@ export default {
         name: this.name,
         surname: this.surname,
         password: this.password,
-        email: this.email
+        email: this.email,
+        telephone: this.telephone
       }
 
       try {
