@@ -2,7 +2,7 @@
   <div class="admin">
     <div class="admin__header">
       <ButtonBack/>
-      <router-link class="link" to="create-product">Создать продукт</router-link>
+      <router-link class="link" to="create-product">Создать товар</router-link>
       <router-link class="link" to="orders">Заказы</router-link>
     </div>
     <router-view></router-view>

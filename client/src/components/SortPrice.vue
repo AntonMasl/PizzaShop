@@ -1,11 +1,11 @@
 <template>
   <div class="sort-price">
-    <div class="sort-title">Сортировка по цене:</div>
+    <div class="sort-title">Сортировка:</div>
     <select v-model="selectedSortType" @change="onSort">
       <option disabled value="">выбирите</option>
       <option value="">отменить</option>
-      <option value="inc">по возрастанию</option>
-      <option value="dec">по убыванию</option>
+      <option value="inc">цена <span class="arrow">	&#9650;</span></option>
+      <option value="inc">цена <span class="arrow">&#9660;</span></option>
     </select>
   </div>
 </template>
@@ -41,7 +41,9 @@ select {
   font-size: 16px;
   border-radius: 5px 5px 0 0;
 }
-
+.arrow{
+  background-color: red;
+}
 .sort-price {
   display: flex;
   align-items: center;

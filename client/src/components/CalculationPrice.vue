@@ -36,8 +36,11 @@
       </div>
       <div class="sum" v-else>
         <div class="price">{{ countProduct * product.price }} <span>руб</span></div>
-        <div class="weight">
-          {{ countProduct * product.weight }} г
+        <div class="weight" v-if="product.category.name!=='напиток'">
+          {{countProduct * product.weight }} г
+        </div>
+        <div class="weight" v-else>
+          {{countProduct * product.weight }} л
         </div>
       </div>
     </div>

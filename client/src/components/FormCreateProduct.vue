@@ -62,7 +62,7 @@
         </div>
       </div>
       <div>
-        <div class="option__title">Пищевая ценность:</div>
+        <div class="option__title">Пищевая ценность на 100г:</div>
         <div class="option__item">
           <div><span>энерг. цен.:</span><input type="number" v-model.number="foodValue.energyValue"></div>
           <div><span>белки:</span><input type="number" v-model.number="foodValue.proteins"></div>

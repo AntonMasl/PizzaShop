@@ -74,10 +74,24 @@ export default {
             return state.product
         },
         visibleProducts(state) {
+            // if (state.valueSearch) {
+            //     return state.products.filter(item => item.name.toLowerCase().includes(state.valueSearch.toLowerCase()))
+            // } else {
+            //     return state.products
+            // }
             if (state.valueSearch) {
                 return state.products.filter(item => item.name.toLowerCase().includes(state.valueSearch.toLowerCase()))
             } else {
-                return state.products
+                console.log(state.selectedSortType)
+                if (!state.selectedSortType) {
+                    return state.products
+                } else {
+                    if (state.selectedSortType === "inc") {
+                        const a = [...state.products];
+                        return a.sort((prev, next) => prev.prices.small - next.prices.small);
+                    }
+                }
+// return state.products
             }
         },
         sortAllProducts(state){

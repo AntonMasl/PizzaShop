@@ -20,10 +20,10 @@
         </div>
         <div class="product__description">
           <div class="title">Описание:</div>
-          <div>{{ product.description }}</div>
+          <div class="text-descr">{{ product.description }}</div>
         </div>
         <div class="product__calculation">
-          <div class="title">Выбирите тип теста и размер пиццы:</div>
+          <div class="title" v-if="product.category.name==='пицца'">Выбирите тип теста и размер пиццы:</div>
           <CalculationPrice :product="product"/>
         </div>
         <!--        <button class="product__btn-buy">+ в корзину</button>-->
@@ -201,46 +201,10 @@ export default {
     }
   }
 }
-
-//.btn {
-//  background-color: white;
-//  letter-spacing: 1px;
-//  border-radius: 10px;
-//  cursor: pointer;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  border: 1px solid black;
-//
-//  &:hover {
-//    background-color: #e5e5e9;
-//  }
-//}
-
-//.btn-active {
-//  background-color: $v_orange;
-//  color: white;
-//
-//  &:hover {
-//    background-color: $v_orange !important;
-//  }
-//}
-
-
-.small {
-}
-
-.active {
-}
-
-.middle {
-}
-
-.big {
-}
-
-.product {
-
+.text-descr{
+  font-size: 15px;
+  line-height: 1.4;
+  font-style: italic;
 }
 
 </style>

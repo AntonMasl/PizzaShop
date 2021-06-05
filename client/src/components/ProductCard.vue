@@ -11,51 +11,6 @@
         <div class="card__name">{{ product ? product.name : '' }}</div>
       </div>
       <CalculationPrice :product="product"/>
-<!--      <div class="card__specification-pizza" v-if="product.category?product.category.name==='пицца':''">-->
-<!--        <b-form-group>-->
-<!--          <b-form-radio-group-->
-<!--              id="btn-radios-"-->
-<!--              v-model="selectedDough"-->
-<!--              :options="typeDough"-->
-<!--              button-variant="outline-primary"-->
-<!--              size="lg"-->
-<!--              name="radio-btn-outline"-->
-<!--              buttons-->
-<!--          ></b-form-radio-group>-->
-<!--        </b-form-group>-->
-<!--        <b-form-group>-->
-<!--          <b-form-radio-group-->
-<!--              id="btn-radios-"-->
-<!--              v-model="selectedDiameter"-->
-<!--              :options="diameters"-->
-<!--              button-variant="outline-primary"-->
-<!--              size="lg"-->
-<!--              name="radio-btn-outline"-->
-<!--              buttons-->
-<!--          ></b-form-radio-group>-->
-<!--        </b-form-group>-->
-<!--      </div>-->
-<!--      <div class="card__bottom">-->
-<!--        <div class="card__counter-product">-->
-<!--          <button>-</button>-->
-<!--          <span>1</span>-->
-<!--          <button>+</button>-->
-<!--        </div>-->
-<!--        <div class="card__sum" v-if="product.category?product.category.name === 'пицца':''">-->
-<!--          <div class="card__price">{{ product.prices[selectedDiameter] }} <span>руб</span></div>-->
-<!--          <div class="card__weight">-->
-<!--            {{ selectedDough === "small" ? product.weightOnSmallDough[selectedDiameter] : product.weightOnTraditionalDough[selectedDiameter] }}-->
-<!--            г-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="card__sum" v-else>-->
-<!--          <div class="card__price">{{ product.price }} <span>руб</span></div>-->
-<!--          <div class="card__weight">-->
-<!--            {{ product.weight }} г-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <button class="card__btn-buy">+ в корзину</button>-->
     </div>
   </li>
 </template>
